@@ -1,0 +1,53 @@
+name: Build and Push to GCR
+
+on:
+  push:
+    branches:
+      - chains/coreum
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_ZONE: us-central1-c
+  IMAGE: bdjuno
+
+jobs:
+  setup-build-publish-webhook:
+    name: Setup, Build, Publish, Webhook
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup gcloud CLI
+      - uses: google-github-actions/setup-gcloud@v0.2.1
+        with:
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          project_id: ${{ secrets.GKE_PROJECT }}
+
+      # Configure Docker to use the gcloud command-line tool as a credential
+      # helper for authentication
+      - run: |-
+          gcloud --quiet auth configure-docker
+      # Build the Docker image
+      # 1. Extract semver version from package.json.
+      # 2. Build image with tag extracted from package.json.
+      - name: Build
+        run: |-
+          export TAG=`cat VERSION`
+          echo "tag=$TAG" >> $GITHUB_ENV
+          docker build \
+            --tag "gcr.io/$PROJECT_ID/$IMAGE:$TAG" \
+            --tag "gcr.io/$PROJECT_ID/$IMAGE:latest" \
+            .
+      # Push the Docker image to Google Container Registry
+      # 1. Extract semver version from package.json.
+      # 2. Push image with tag extracted from package.json.
+      - name: Publish
+        run: |-
+          docker push "gcr.io/$PROJECT_ID/$IMAGE:${{ env.tag }}" && \
+          docker push "gcr.io/$PROJECT_ID/$IMAGE:latest"
+      # Send webhook to keel so it triggers image update.
+      - name: Send Webhook
+        run: |-
+          curl -v -X POST $WEBHOOK_ENDPOINT  -H "Content-Type: application/json" -d "{\"name\": \"gcr.io/$PROJECT_ID/$IMAGE\", \"tag\": \"${{ env.tag }}\"}"
