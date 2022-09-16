@@ -12,4 +12,4 @@ RUN apk add postgresql
 COPY --from=builder /go/src/github.com/forbole/bdjuno/build/bdjuno /usr/bin/bdjuno
 COPY --from=builder /database/schema /var/lib/postgresql/schema
 
-CMD [ "bdjuno" ]
+CMD [ "bdjuno", "start" ]
