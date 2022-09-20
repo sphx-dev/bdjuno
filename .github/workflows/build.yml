@@ -8,7 +8,6 @@ on:
 env:
   REPO: bdjuno
   ORG: coreumfoundation
-  SHA8: ${GITHUB_SHA::8}
 
 jobs:
   setup-build-publish-webhook:
@@ -23,6 +22,7 @@ jobs:
         run: |
           VER=$(cat VERSION)
           echo "VERSION=$VER" >> $GITHUB_ENV
+          echo "SHA8=${GITHUB_SHA::8}" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
