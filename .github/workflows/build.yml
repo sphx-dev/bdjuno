@@ -8,6 +8,7 @@ on:
 env:
   REPO: bdjuno
   ORG: coreumfoundation
+  SHA8: ${GITHUB_SHA::8}
 
 jobs:
   setup-build-publish-webhook:
@@ -38,4 +39,5 @@ jobs:
           push: true
           tags: |
             ${{ env.ORG }}/${{ env.REPO }}:${{ env.VERSION }}
+            ${{ env.ORG }}/${{ env.REPO }}:${{ env.SHA8 }}
             ${{ env.ORG }}/${{ env.REPO }}:latest
