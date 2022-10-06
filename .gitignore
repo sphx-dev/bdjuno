@@ -2,6 +2,7 @@
 build/
 
 # Configuration
+.bdjuno
 *.toml
 *.json
 config.yaml

@@ -4,16 +4,23 @@ name: Lint
 # The `golangci` will pass without running if no *.{go, mod, sum} files have been changed.
 on:
   pull_request:
+    branches:
+      - main
+      - chains/coreum
   push:
     branches:
-      - master
+      - main
+      - chains/coreum
 
 jobs:
   GolangCI:
     name: golangci-lint
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 10
     steps:
+      - uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
       - uses: actions/checkout@v3
       - uses: technote-space/get-diff-action@v6.0.1
         with:
@@ -21,9 +28,9 @@ jobs:
             .go
             .mod
             .sum
-      - uses: golangci/golangci-lint-action@v3.2.0
+      - uses: golangci/golangci-lint-action@v3
         with:
-          version: v1.28
+          version: v1.50.0
           args: --timeout 10m
           github-token: ${{ secrets.GITHUB_TOKEN }}
         if: "env.GIT_DIFF != ''"
