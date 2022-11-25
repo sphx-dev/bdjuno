@@ -36,10 +36,15 @@ This will:
 
 ## Local launch in docker compose
 
-* Create .bdjuno folder and inside it create config.toml (for sample of config check config-sample.yaml) and genesis.json of your chain.
-
-* Build and start
-
+1. Create `.bdjuno` directory in the root of the repo and put there next two files:
+   1. `config.yaml` which you can copy from `config-sample.yaml`. Do next change there:
+      1. Replace `YOUR_CHAIN_ACC_PREFIX` with your account prefix(`coredev` should work for you). This will let you have separate accounts with the same private keys for different chains.
+      2. Replace `YOUR_NODE_IP` with `cored` address.
+   2. `genesis.json` which you can find in two ways:
+      1. At cored `/genesiz/` endpoint(`http://127.0.0.1:26557/genesis?` for example)
+      2. At mounted directory `~/.cache/crust/znet/znet/app/coredev-00/coreum-devnet-1/config`
+   
+2. Build and start
 ```bash
 docker-compose up
 ```
