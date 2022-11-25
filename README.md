@@ -41,7 +41,7 @@ This will:
       1. Replace `YOUR_CHAIN_ACC_PREFIX` with your account prefix(`coredev` should work for you). This will let you have separate accounts with the same private keys for different chains.
       2. Replace `YOUR_NODE_IP` with `cored` address.
    2. `genesis.json` which you can find in two ways:
-      1. At cored `/genesiz/` endpoint(`http://127.0.0.1:26557/genesis?` for example)
+      1. At cored `/genesis` endpoint(`http://127.0.0.1:26557/genesis?` for example)
       2. At mounted directory `~/.cache/crust/znet/znet/app/coredev-00/coreum-devnet-1/config`
    
 2. Build and start
