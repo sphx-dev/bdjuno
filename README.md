@@ -49,7 +49,7 @@ This will:
    
 2. Build and start
 ```bash
-docker-compose up
+docker-compose build && docker-compose up
 ```
 
 * Open [hasura UI](http://localhost:8080/console) and check that it works correctly.

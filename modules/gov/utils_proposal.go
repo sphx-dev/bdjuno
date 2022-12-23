@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	feemodeltypes "github.com/CoreumFoundation/coreum/x/feemodel/types"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	proposaltypes "github.com/cosmos/cosmos-sdk/x/params/types/proposal"
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
@@ -126,6 +127,11 @@ func (m *Module) handleParamChangeProposal(height int64, proposal govtypes.Propo
 			err = m.stakingModule.UpdateParams(height)
 			if err != nil {
 				return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", stakingtypes.ModuleName, err)
+			}
+		case feemodeltypes.ModuleName:
+			err = m.feeModelModule.UpdateParams(height)
+			if err != nil {
+				return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", feemodeltypes.ModuleName, err)
 			}
 		}
 	}

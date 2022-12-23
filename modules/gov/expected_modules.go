@@ -30,3 +30,7 @@ type StakingModule interface {
 	GetValidatorsStatuses(height int64, validators []stakingtypes.Validator) ([]types.ValidatorStatus, error)
 	UpdateParams(height int64) error
 }
+
+type FeeModelModule interface {
+	UpdateParams(height int64) error
+}

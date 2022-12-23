@@ -12,6 +12,7 @@ chain:
         - staking
         - distribution
         - actions
+        - feemodel
 node:
     type: remote
     config:

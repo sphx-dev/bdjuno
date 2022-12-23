@@ -10,6 +10,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/simapp/params"
 	"github.com/forbole/juno/v3/node/remote"
 
+	feemodeltypes "github.com/CoreumFoundation/coreum/x/feemodel/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
@@ -27,6 +28,8 @@ import (
 	distrsource "github.com/forbole/bdjuno/v3/modules/distribution/source"
 	localdistrsource "github.com/forbole/bdjuno/v3/modules/distribution/source/local"
 	remotedistrsource "github.com/forbole/bdjuno/v3/modules/distribution/source/remote"
+	feemodelsource "github.com/forbole/bdjuno/v3/modules/feemodel/source"
+	remotefeemodelsource "github.com/forbole/bdjuno/v3/modules/feemodel/source/remote"
 	govsource "github.com/forbole/bdjuno/v3/modules/gov/source"
 	localgovsource "github.com/forbole/bdjuno/v3/modules/gov/source/local"
 	remotegovsource "github.com/forbole/bdjuno/v3/modules/gov/source/remote"
@@ -48,6 +51,7 @@ type Sources struct {
 	MintSource     mintsource.Source
 	SlashingSource slashingsource.Source
 	StakingSource  stakingsource.Source
+	FeeModelSource feemodelsource.Source
 }
 
 func BuildSources(nodeCfg nodeconfig.Config, encodingConfig *params.EncodingConfig) (*Sources, error) {
@@ -119,5 +123,6 @@ func buildRemoteSources(cfg *remote.Details) (*Sources, error) {
 		MintSource:     remotemintsource.NewSource(source, minttypes.NewQueryClient(source.GrpcConn)),
 		SlashingSource: remoteslashingsource.NewSource(source, slashingtypes.NewQueryClient(source.GrpcConn)),
 		StakingSource:  remotestakingsource.NewSource(source, stakingtypes.NewQueryClient(source.GrpcConn)),
+		FeeModelSource: remotefeemodelsource.NewSource(source, feemodeltypes.NewQueryClient(source.GrpcConn)),
 	}, nil
 }

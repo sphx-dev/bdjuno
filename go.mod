@@ -3,7 +3,7 @@ module github.com/forbole/bdjuno/v3
 go 1.18
 
 require (
-	github.com/CoreumFoundation/coreum v0.0.1-dev
+	github.com/CoreumFoundation/coreum v0.0.1-dev-1.0.20221221080541-af88eb7eecde
 	github.com/cosmos/cosmos-sdk v0.45.9
 	github.com/forbole/juno/v3 v3.4.1-0.20220912104021-a2cfbab251bc
 	github.com/go-co-op/gocron v1.13.0
@@ -58,6 +58,7 @@ require (
 	github.com/dvsekhvalnov/jose2go v1.5.0 // indirect
 	github.com/felixge/httpsnoop v1.0.2 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
+	github.com/gin-gonic/gin v1.7.0 // indirect
 	github.com/go-kit/kit v0.12.0 // indirect
 	github.com/go-kit/log v0.2.1 // indirect
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
@@ -120,9 +121,7 @@ require (
 	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7 // indirect
 	github.com/tendermint/btcd v0.1.1 // indirect
 	github.com/tendermint/crypto v0.0.0-20191022145703-50d29ede1e15 // indirect
-	github.com/tendermint/fundraising v0.3.0 // indirect
 	github.com/tendermint/go-amino v0.16.0 // indirect
-	github.com/tendermint/spn v0.2.1-0.20220610090138-44b136f042c4 // indirect
 	github.com/tendermint/tm-db v0.6.7 // indirect
 	github.com/zondax/hid v0.9.0 // indirect
 	go.etcd.io/bbolt v1.3.6 // indirect
