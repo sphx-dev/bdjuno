@@ -24,6 +24,7 @@ import (
 	"github.com/forbole/bdjuno/v3/modules/distribution"
 	"github.com/forbole/bdjuno/v3/modules/feegrant"
 
+	"github.com/forbole/bdjuno/v3/modules/customparams"
 	"github.com/forbole/bdjuno/v3/modules/feemodel"
 	"github.com/forbole/bdjuno/v3/modules/gov"
 	"github.com/forbole/bdjuno/v3/modules/mint"
@@ -82,6 +83,7 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 	slashingModule := slashing.NewModule(sources.SlashingSource, cdc, db)
 	stakingModule := staking.NewModule(sources.StakingSource, slashingModule, cdc, db)
 	feeModelModule := feemodel.NewModule(sources.FeeModelSource, cdc, db)
+	customParamsModule := customparams.NewModule(sources.CustomParamsSource, cdc, db)
 	govModule := gov.NewModule(
 		sources.GovSource,
 		authModule,
@@ -90,6 +92,7 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 		slashingModule,
 		stakingModule,
 		feeModelModule,
+		customParamsModule,
 		cdc,
 		db,
 	)
@@ -112,5 +115,6 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 		slashingModule,
 		stakingModule,
 		feeModelModule,
+		customParamsModule,
 	}
 }

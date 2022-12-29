@@ -37,14 +37,17 @@ This will:
 ## Local launch in docker compose
 
 1. Create `.bdjuno` directory in the root of the repo and put there next two files:
-   1. `config.yaml` which you can copy from `config-sample.yaml`. Do next change there:
-      1. Replace `YOUR_CHAIN_ACC_PREFIX` with your account prefix(`coredev` is an example for devnet, you can use it too). This will let you have separate accounts with the same private keys for different chains.
-      2. Replace `YOUR_NODE_IP` with `cored` address.
-   2. `genesis.json` which you can find at cored `/genesis` endpoint(`http://127.0.0.1:26557/genesis?` for example). Take nested object:
-      ```json
-      {
-          "genesis": {this object}
-      }
+    1. `config.yaml` which you can copy from `config-sample.yaml`. Do next change there:
+        1. Replace `YOUR_CHAIN_ACC_PREFIX` with your account prefix(`coredev` is an example for devnet, you can use it
+           too). This will let you have separate accounts with the same private keys for different chains.
+        2. Replace `YOUR_NODE_IP` with `cored` address.
+    2. `genesis.json` which you can find at cored `/genesis` endpoint(`http://127.0.0.1:26557/genesis?` for example).
+       Take nested object:
+       ```json
+       {
+           "genesis": {this object}
+       }
+
 ```
    
 2. Build and start
@@ -53,13 +56,20 @@ docker-compose build && docker-compose up
 ```
 
 * Open [hasura UI](http://localhost:8080/console) and check that it works correctly.
-The password is defined in docker-compose.yaml and set to "myadminsecretkey" by default.
+  The password is defined in docker-compose.yaml and set to "myadminsecretkey" by default.
 
 ### Remarks
 
 In case you run the bdjuno with the connection to old-running node you might face the error in the logs
+
 ```
 error while getting staking pool: rpc error: code = Internal desc = UnmarshalJSON cannot decode empty bytes
 ```
 
-This is expected since the node doesn't store all staking pool for all heights. 
+This is expected since the node doesn't store all staking pool for all heights.
+
+## Custom params integration
+
+In case you want to integrate the indexing if the custom types, for example parameters,
+that [PR](https://github.com/CoreumFoundation/bdjuno/pull/4)
+can be taken as a reference implementation.

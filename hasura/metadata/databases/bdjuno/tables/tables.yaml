@@ -41,3 +41,4 @@
 - "!include public_vesting_account.yaml"
 - "!include public_vesting_period.yaml"
 - "!include public_feemodel_params.yaml"
+- "!include public_customparams_params.yaml"

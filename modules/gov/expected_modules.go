@@ -34,3 +34,7 @@ type StakingModule interface {
 type FeeModelModule interface {
 	UpdateParams(height int64) error
 }
+
+type CustomParamsModule interface {
+	UpdateParams(height int64) error
+}

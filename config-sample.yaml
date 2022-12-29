@@ -13,6 +13,7 @@ chain:
         - distribution
         - actions
         - feemodel
+        - customparams
 node:
     type: remote
     config:

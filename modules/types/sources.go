@@ -10,6 +10,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/simapp/params"
 	"github.com/forbole/juno/v3/node/remote"
 
+	customparamstypes "github.com/CoreumFoundation/coreum/x/customparams/types"
 	feemodeltypes "github.com/CoreumFoundation/coreum/x/feemodel/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
@@ -25,6 +26,8 @@ import (
 	banksource "github.com/forbole/bdjuno/v3/modules/bank/source"
 	localbanksource "github.com/forbole/bdjuno/v3/modules/bank/source/local"
 	remotebanksource "github.com/forbole/bdjuno/v3/modules/bank/source/remote"
+	customparamssource "github.com/forbole/bdjuno/v3/modules/customparams/source"
+	remotecustomparamssource "github.com/forbole/bdjuno/v3/modules/customparams/source/remote"
 	distrsource "github.com/forbole/bdjuno/v3/modules/distribution/source"
 	localdistrsource "github.com/forbole/bdjuno/v3/modules/distribution/source/local"
 	remotedistrsource "github.com/forbole/bdjuno/v3/modules/distribution/source/remote"
@@ -45,13 +48,14 @@ import (
 )
 
 type Sources struct {
-	BankSource     banksource.Source
-	DistrSource    distrsource.Source
-	GovSource      govsource.Source
-	MintSource     mintsource.Source
-	SlashingSource slashingsource.Source
-	StakingSource  stakingsource.Source
-	FeeModelSource feemodelsource.Source
+	BankSource         banksource.Source
+	DistrSource        distrsource.Source
+	GovSource          govsource.Source
+	MintSource         mintsource.Source
+	SlashingSource     slashingsource.Source
+	StakingSource      stakingsource.Source
+	FeeModelSource     feemodelsource.Source
+	CustomParamsSource customparamssource.Source
 }
 
 func BuildSources(nodeCfg nodeconfig.Config, encodingConfig *params.EncodingConfig) (*Sources, error) {
@@ -117,12 +121,13 @@ func buildRemoteSources(cfg *remote.Details) (*Sources, error) {
 	}
 
 	return &Sources{
-		BankSource:     remotebanksource.NewSource(source, banktypes.NewQueryClient(source.GrpcConn)),
-		DistrSource:    remotedistrsource.NewSource(source, distrtypes.NewQueryClient(source.GrpcConn)),
-		GovSource:      remotegovsource.NewSource(source, govtypes.NewQueryClient(source.GrpcConn)),
-		MintSource:     remotemintsource.NewSource(source, minttypes.NewQueryClient(source.GrpcConn)),
-		SlashingSource: remoteslashingsource.NewSource(source, slashingtypes.NewQueryClient(source.GrpcConn)),
-		StakingSource:  remotestakingsource.NewSource(source, stakingtypes.NewQueryClient(source.GrpcConn)),
-		FeeModelSource: remotefeemodelsource.NewSource(source, feemodeltypes.NewQueryClient(source.GrpcConn)),
+		BankSource:         remotebanksource.NewSource(source, banktypes.NewQueryClient(source.GrpcConn)),
+		DistrSource:        remotedistrsource.NewSource(source, distrtypes.NewQueryClient(source.GrpcConn)),
+		GovSource:          remotegovsource.NewSource(source, govtypes.NewQueryClient(source.GrpcConn)),
+		MintSource:         remotemintsource.NewSource(source, minttypes.NewQueryClient(source.GrpcConn)),
+		SlashingSource:     remoteslashingsource.NewSource(source, slashingtypes.NewQueryClient(source.GrpcConn)),
+		StakingSource:      remotestakingsource.NewSource(source, stakingtypes.NewQueryClient(source.GrpcConn)),
+		FeeModelSource:     remotefeemodelsource.NewSource(source, feemodeltypes.NewQueryClient(source.GrpcConn)),
+		CustomParamsSource: remotecustomparamssource.NewSource(source, customparamstypes.NewQueryClient(source.GrpcConn)),
 	}, nil
 }
