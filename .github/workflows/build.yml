@@ -18,13 +18,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Set variables
+        # if git tag is present, set it to BDJUNO_FULL_TAG_NAME and HASURA_FULL_TAG_NAME, else put empty string
         run: |
-          VER=$(cat VERSION)
-          echo "VERSION=$VER" >> $GITHUB_ENV
           echo "SHA8=${GITHUB_SHA::8}" >> $GITHUB_ENV
-
+          export BDJUNO_FULL_TAG_NAME=${{ (startsWith(github.ref, 'refs/tags/') && format('{0}/{1}:{2}', env.ORG, env.BDJUNO_IMAGE_NAME, github.ref_name)) || '' }}
+          echo "BDJUNO_FULL_TAG_NAME=$BDJUNO_FULL_TAG_NAME" >> $GITHUB_ENV
+          export HASURA_FULL_TAG_NAME=${{ (startsWith(github.ref, 'refs/tags/') && format('{0}/{1}:{2}', env.ORG, env.HASURA_IMAGE_NAME, github.ref_name)) || '' }}
+          echo "HASURA_FULL_TAG_NAME=$HASURA_FULL_TAG_NAME" >> $GITHUB_ENV
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -39,10 +43,11 @@ jobs:
         with:
           file: Dockerfile
           push: true
+          # if tag is an empty string, plugin will skip that tag.
           tags: |
-            ${{ env.ORG }}/${{ env.BDJUNO_IMAGE_NAME }}:${{ env.VERSION }}
-            ${{ env.ORG }}/${{ env.BDJUNO_IMAGE_NAME }}:${{ env.SHA8 }}
             ${{ env.ORG }}/${{ env.BDJUNO_IMAGE_NAME }}:latest
+            ${{ env.ORG }}/${{ env.BDJUNO_IMAGE_NAME }}:${{ env.SHA8 }}
+            ${{ env.BDJUNO_FULL_TAG_NAME }}
 
       - name: Build and push hasura
         uses: docker/build-push-action@v3
@@ -50,6 +55,7 @@ jobs:
           file: Dockerfile.hasura
           push: true
           tags: |
-            ${{ env.ORG }}/${{ env.HASURA_IMAGE_NAME }}:${{ env.VERSION }}
-            ${{ env.ORG }}/${{ env.HASURA_IMAGE_NAME }}:${{ env.SHA8 }}
             ${{ env.ORG }}/${{ env.HASURA_IMAGE_NAME }}:latest
+            ${{ env.ORG }}/${{ env.HASURA_IMAGE_NAME }}:${{ env.SHA8 }}
+            ${{ env.HASURA_FULL_TAG_NAME }}
+
