@@ -10,6 +10,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/simapp/params"
 	"github.com/forbole/juno/v3/node/remote"
 
+	assetfttypes "github.com/CoreumFoundation/coreum/x/asset/ft/types" // FIXME (order all imports)
+	assetnfttypes "github.com/CoreumFoundation/coreum/x/asset/nft/types"
 	customparamstypes "github.com/CoreumFoundation/coreum/x/customparams/types"
 	feemodeltypes "github.com/CoreumFoundation/coreum/x/feemodel/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
@@ -19,10 +21,14 @@ import (
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
+	assetftsource "github.com/forbole/bdjuno/v3/modules/assetft/source"
+	assetnftsource "github.com/forbole/bdjuno/v3/modules/assetnft/source"
 	"github.com/forbole/juno/v3/node/local"
 
 	nodeconfig "github.com/forbole/juno/v3/node/config"
 
+	remoteassetftsource "github.com/forbole/bdjuno/v3/modules/assetft/source/remote"
+	remoteassetnftsource "github.com/forbole/bdjuno/v3/modules/assetnft/source/remote"
 	banksource "github.com/forbole/bdjuno/v3/modules/bank/source"
 	localbanksource "github.com/forbole/bdjuno/v3/modules/bank/source/local"
 	remotebanksource "github.com/forbole/bdjuno/v3/modules/bank/source/remote"
@@ -56,6 +62,8 @@ type Sources struct {
 	StakingSource      stakingsource.Source
 	FeeModelSource     feemodelsource.Source
 	CustomParamsSource customparamssource.Source
+	AssetFTSource      assetftsource.Source
+	AssetNFTSource     assetnftsource.Source
 }
 
 func BuildSources(nodeCfg nodeconfig.Config, encodingConfig *params.EncodingConfig) (*Sources, error) {
@@ -129,5 +137,7 @@ func buildRemoteSources(cfg *remote.Details) (*Sources, error) {
 		StakingSource:      remotestakingsource.NewSource(source, stakingtypes.NewQueryClient(source.GrpcConn)),
 		FeeModelSource:     remotefeemodelsource.NewSource(source, feemodeltypes.NewQueryClient(source.GrpcConn)),
 		CustomParamsSource: remotecustomparamssource.NewSource(source, customparamstypes.NewQueryClient(source.GrpcConn)),
+		AssetFTSource:      remoteassetftsource.NewSource(source, assetfttypes.NewQueryClient(source.GrpcConn)),
+		AssetNFTSource:     remoteassetnftsource.NewSource(source, assetnfttypes.NewQueryClient(source.GrpcConn)),
 	}, nil
 }

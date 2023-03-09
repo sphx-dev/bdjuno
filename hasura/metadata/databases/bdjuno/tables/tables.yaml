@@ -42,3 +42,5 @@
 - "!include public_vesting_period.yaml"
 - "!include public_feemodel_params.yaml"
 - "!include public_customparams_params.yaml"
+- "!include public_assetft_params.yaml"
+- "!include public_assetnft_params.yaml"

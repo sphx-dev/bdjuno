@@ -38,3 +38,11 @@ type FeeModelModule interface {
 type CustomParamsModule interface {
 	UpdateParams(height int64) error
 }
+
+type AssetFTModule interface {
+	UpdateParams(height int64) error
+}
+
+type AssetNFTModule interface {
+	UpdateParams(height int64) error
+}

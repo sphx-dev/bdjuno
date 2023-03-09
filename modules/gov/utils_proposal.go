@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	assetfttypes "github.com/CoreumFoundation/coreum/x/asset/ft/types"
+	assetnfttypes "github.com/CoreumFoundation/coreum/x/asset/nft/types"
 	customparamstypes "github.com/CoreumFoundation/coreum/x/customparams/types"
 	feemodeltypes "github.com/CoreumFoundation/coreum/x/feemodel/types"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
@@ -138,6 +140,16 @@ func (m *Module) handleParamChangeProposal(height int64, proposal govtypes.Propo
 			err = m.customParamsModule.UpdateParams(height)
 			if err != nil {
 				return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", customparamstypes.ModuleName, err)
+			}
+		case assetfttypes.ModuleName:
+			err = m.assetFTModule.UpdateParams(height)
+			if err != nil {
+				return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", assetfttypes.ModuleName, err)
+			}
+		case assetnfttypes.ModuleName:
+			err = m.assetNFTModule.UpdateParams(height)
+			if err != nil {
+				return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", assetnfttypes.ModuleName, err)
 			}
 		}
 	}
