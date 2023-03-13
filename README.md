@@ -73,3 +73,19 @@ This is expected since the node doesn't store all staking pool for all heights.
 In case you want to integrate the indexing if the custom types, for example parameters,
 that [PR](https://github.com/CoreumFoundation/bdjuno/pull/4)
 can be taken as a reference implementation.
+
+## Hasura API
+
+### GraphQL Schema
+
+The GraphQL schema is located [here](./hasura/api/schema.graphql). It describes all supported queries.
+
+In order to export it you can run the hasura locally and execute script
+
+```
+npm install -g graphqurl # install the gq
+gq http://localhost:8080/v1/graphql -H "X-Hasura-Admin-Secret: myadminsecretkey" --introspect > schema.graphql  # export schema
+```
+
+Pay attention that `myadminsecretkey` is the secret set for this repo local environment, and can be different for
+others.
