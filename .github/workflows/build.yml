@@ -39,10 +39,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push bdjuno
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           file: Dockerfile
           push: true
+          platforms: linux/amd64,linux/arm64
           # if tag is an empty string, plugin will skip that tag.
           tags: |
             ${{ env.ORG }}/${{ env.BDJUNO_IMAGE_NAME }}:latest
@@ -50,10 +51,11 @@ jobs:
             ${{ env.BDJUNO_FULL_TAG_NAME }}
 
       - name: Build and push hasura
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           file: Dockerfile.hasura
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: |
             ${{ env.ORG }}/${{ env.HASURA_IMAGE_NAME }}:latest
             ${{ env.ORG }}/${{ env.HASURA_IMAGE_NAME }}:${{ env.SHA8 }}

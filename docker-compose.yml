@@ -21,6 +21,7 @@ services:
       - "5432:5432"
 
   bdjuno:
+    # image: coreumfoundation/bdjuno:latest <- or use built image
     build:
       context: .
       dockerfile: Dockerfile
@@ -35,6 +36,7 @@ services:
       - .bdjuno:/bdjuno/.bdjuno
 
   hasura:
+    # image: coreumfoundation/hasura:latest <- or use built image
     build:
       context: .
       dockerfile: Dockerfile.hasura
