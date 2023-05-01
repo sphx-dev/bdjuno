@@ -3,6 +3,7 @@ package consensus
 import (
 	"fmt"
 
+	"github.com/forbole/bdjuno/v3/modules/actions/logging"
 	"github.com/go-co-op/gocron"
 	"github.com/rs/zerolog/log"
 
@@ -65,7 +66,15 @@ func (m *Module) updateBlockTimeInMinute() error {
 	}
 	newBlockTime := block.Timestamp.Sub(minute.Timestamp).Seconds() / float64(block.Height-minute.Height)
 
-	return m.db.SaveAverageBlockTimePerMin(newBlockTime, block.Height)
+	updated, err := m.db.SaveAverageBlockTimePerMin(newBlockTime, block.Height)
+	if err != nil {
+		return err
+	}
+	if updated {
+		logging.BlockTimeGage.WithLabelValues("minute").Set(newBlockTime)
+	}
+
+	return nil
 }
 
 // updateBlockTimeInHour insert average block time in the latest hour
@@ -99,7 +108,15 @@ func (m *Module) updateBlockTimeInHour() error {
 	}
 	newBlockTime := block.Timestamp.Sub(hour.Timestamp).Seconds() / float64(block.Height-hour.Height)
 
-	return m.db.SaveAverageBlockTimePerHour(newBlockTime, block.Height)
+	updated, err := m.db.SaveAverageBlockTimePerHour(newBlockTime, block.Height)
+	if err != nil {
+		return err
+	}
+	if updated {
+		logging.BlockTimeGage.WithLabelValues("hour").Set(newBlockTime)
+	}
+
+	return nil
 }
 
 // updateBlockTimeInDay insert average block time in the latest minute
@@ -133,5 +150,14 @@ func (m *Module) updateBlockTimeInDay() error {
 	}
 	newBlockTime := block.Timestamp.Sub(day.Timestamp).Seconds() / float64(block.Height-day.Height)
 
-	return m.db.SaveAverageBlockTimePerDay(newBlockTime, block.Height)
+	updated, err := m.db.SaveAverageBlockTimePerDay(newBlockTime, block.Height)
+	if err != nil {
+		return err
+	}
+	if updated {
+		logging.BlockTimeGage.WithLabelValues("day").Set(newBlockTime)
+	}
+
+	return nil
+
 }

@@ -27,6 +27,16 @@ var ActionErrorCounter = prometheus.NewCounterVec(
 	}, []string{"path", "http_status_code"},
 )
 
+// BlockTimeGage represents the Telemetry gauge used to track chain block time
+var BlockTimeGage = prometheus.NewGaugeVec(
+	prometheus.GaugeOpts{
+		Name: "bdjuno_block_time",
+		Help: "The current bdjuno block time.",
+	}, []string{
+		"period",
+	},
+)
+
 func init() {
 	err := prometheus.Register(ActionResponseTime)
 	if err != nil {
@@ -39,6 +49,11 @@ func init() {
 	}
 
 	err = prometheus.Register(ActionErrorCounter)
+	if err != nil {
+		panic(err)
+	}
+
+	err = prometheus.Register(BlockTimeGage)
 	if err != nil {
 		panic(err)
 	}

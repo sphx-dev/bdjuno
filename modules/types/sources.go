@@ -10,7 +10,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/simapp/params"
 	"github.com/forbole/juno/v3/node/remote"
 
-	assetfttypes "github.com/CoreumFoundation/coreum/x/asset/ft/types" // FIXME (order all imports)
+	assetfttypes "github.com/CoreumFoundation/coreum/x/asset/ft/types"
 	assetnfttypes "github.com/CoreumFoundation/coreum/x/asset/nft/types"
 	customparamstypes "github.com/CoreumFoundation/coreum/x/customparams/types"
 	feemodeltypes "github.com/CoreumFoundation/coreum/x/feemodel/types"
