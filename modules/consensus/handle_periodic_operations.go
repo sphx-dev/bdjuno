@@ -71,7 +71,7 @@ func (m *Module) updateBlockTimeInMinute() error {
 		return err
 	}
 	if updated {
-		logging.BlockTimeGage.WithLabelValues("minute").Set(newBlockTime)
+		logging.BlockTimeGauge.WithLabelValues("minute").Set(newBlockTime)
 	}
 
 	return nil
@@ -113,7 +113,7 @@ func (m *Module) updateBlockTimeInHour() error {
 		return err
 	}
 	if updated {
-		logging.BlockTimeGage.WithLabelValues("hour").Set(newBlockTime)
+		logging.BlockTimeGauge.WithLabelValues("hour").Set(newBlockTime)
 	}
 
 	return nil
@@ -155,7 +155,7 @@ func (m *Module) updateBlockTimeInDay() error {
 		return err
 	}
 	if updated {
-		logging.BlockTimeGage.WithLabelValues("day").Set(newBlockTime)
+		logging.BlockTimeGauge.WithLabelValues("day").Set(newBlockTime)
 	}
 
 	return nil
