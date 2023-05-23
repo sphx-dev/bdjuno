@@ -3,7 +3,7 @@ module github.com/forbole/bdjuno/v3
 go 1.18
 
 require (
-	github.com/CoreumFoundation/coreum v1.0.0
+	github.com/CoreumFoundation/coreum v1.0.1-0.20230522082300-9ddf9bfd465a
 	github.com/cosmos/cosmos-sdk v0.45.14
 	github.com/forbole/juno/v3 v3.4.1-0.20220912104021-a2cfbab251bc
 	github.com/go-co-op/gocron v1.13.0
@@ -76,7 +76,7 @@ require (
 	github.com/godbus/dbus v0.0.0-20190726142602-4481cbc300e2 // indirect
 	github.com/gogo/gateway v1.1.0 // indirect
 	github.com/golang/glog v1.0.0 // indirect
-	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/btree v1.1.2 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
