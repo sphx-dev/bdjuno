@@ -16,6 +16,7 @@ chain:
         - customparams
         - assetft
         - assetnft
+        - pricefeed
 node:
     type: remote
     config:
@@ -62,3 +63,11 @@ pruning:
 
 actions:
     port: 3000
+
+pricefeed:
+    tokens:
+        - name: coreum
+          units:
+              - denom: coreum
+                exponent: 6
+                price_id: coreum
