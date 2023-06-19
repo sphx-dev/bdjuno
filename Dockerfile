@@ -15,5 +15,7 @@ RUN apk update
 RUN apk add postgresql
 COPY --from=builder /go/src/github.com/forbole/bdjuno/build/bdjuno /usr/bin/bdjuno
 COPY database/schema /var/lib/postgresql/schema
+RUN chmod a+rx /var/lib/postgresql && \
+    chmod a+rx /var/lib/postgresql/schema
 
 CMD [ "bdjuno", "start" ]
