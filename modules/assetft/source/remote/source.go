@@ -1,7 +1,7 @@
 package remote
 
 import (
-	assetfttypes "github.com/CoreumFoundation/coreum/x/asset/ft/types"
+	assetfttypes "github.com/CoreumFoundation/coreum/v2/x/asset/ft/types"
 	assetftsource "github.com/forbole/bdjuno/v3/modules/assetft/source"
 	"github.com/forbole/juno/v3/node/remote"
 )

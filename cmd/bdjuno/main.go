@@ -16,7 +16,7 @@ import (
 	"github.com/forbole/bdjuno/v3/database"
 	"github.com/forbole/bdjuno/v3/modules"
 
-	coreumapp "github.com/CoreumFoundation/coreum/app"
+	coreumapp "github.com/CoreumFoundation/coreum/v2/app"
 )
 
 func main() {

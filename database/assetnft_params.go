@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	assetnfttypes "github.com/CoreumFoundation/coreum/x/asset/nft/types"
+	assetnfttypes "github.com/CoreumFoundation/coreum/v2/x/asset/nft/types"
 	dbtypes "github.com/forbole/bdjuno/v3/database/types"
 	"github.com/forbole/bdjuno/v3/types"
 )

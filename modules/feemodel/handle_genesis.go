@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	feemodeltypes "github.com/CoreumFoundation/coreum/x/feemodel/types"
+	feemodeltypes "github.com/CoreumFoundation/coreum/v2/x/feemodel/types"
 	"github.com/forbole/bdjuno/v3/types"
 	"github.com/rs/zerolog/log"
 	tmtypes "github.com/tendermint/tendermint/types"

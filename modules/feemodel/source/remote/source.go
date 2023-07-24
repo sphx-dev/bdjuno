@@ -1,7 +1,7 @@
 package remote
 
 import (
-	feemodeltypes "github.com/CoreumFoundation/coreum/x/feemodel/types"
+	feemodeltypes "github.com/CoreumFoundation/coreum/v2/x/feemodel/types"
 	feemodelsource "github.com/forbole/bdjuno/v3/modules/feemodel/source"
 	"github.com/forbole/juno/v3/node/remote"
 )

@@ -3,7 +3,7 @@ package database_test
 import (
 	"encoding/json"
 
-	customparamstypes "github.com/CoreumFoundation/coreum/x/customparams/types"
+	customparamstypes "github.com/CoreumFoundation/coreum/v2/x/customparams/types"
 	dbtypes "github.com/forbole/bdjuno/v3/database/types"
 	"github.com/forbole/bdjuno/v3/types"
 )

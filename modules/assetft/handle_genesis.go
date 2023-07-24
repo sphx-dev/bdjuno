@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	assetfttypes "github.com/CoreumFoundation/coreum/x/asset/ft/types"
+	assetfttypes "github.com/CoreumFoundation/coreum/v2/x/asset/ft/types"
 	"github.com/forbole/bdjuno/v3/types"
 	"github.com/rs/zerolog/log"
 	tmtypes "github.com/tendermint/tendermint/types"

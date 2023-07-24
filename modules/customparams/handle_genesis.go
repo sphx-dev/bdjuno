@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	customparamstypes "github.com/CoreumFoundation/coreum/x/customparams/types"
+	customparamstypes "github.com/CoreumFoundation/coreum/v2/x/customparams/types"
 	"github.com/forbole/bdjuno/v3/types"
 	"github.com/rs/zerolog/log"
 	tmtypes "github.com/tendermint/tendermint/types"
