@@ -17,6 +17,7 @@ chain:
         - assetft
         - assetnft
         - pricefeed
+        - wasm
 node:
     type: remote
     config:
