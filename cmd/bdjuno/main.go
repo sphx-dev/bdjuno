@@ -15,6 +15,10 @@ import (
 
 	"github.com/forbole/bdjuno/v3/database"
 	"github.com/forbole/bdjuno/v3/modules"
+	"github.com/forbole/bdjuno/v3/modules/assetft"
+	"github.com/forbole/bdjuno/v3/modules/assetnft"
+	"github.com/forbole/bdjuno/v3/modules/nft"
+	"github.com/forbole/bdjuno/v3/modules/wasm"
 
 	coreumapp "github.com/CoreumFoundation/coreum/v2/app"
 )
@@ -65,5 +69,9 @@ func getBasicManagers() []module.BasicManager {
 func getAddressesParser() messages.MessageAddressesParser {
 	return messages.JoinMessageParsers(
 		messages.CosmosMessageAddressesParser,
+		assetft.MessagesParser,
+		assetnft.MessagesParser,
+		nft.MessagesParser,
+		wasm.MessagesParser,
 	)
 }

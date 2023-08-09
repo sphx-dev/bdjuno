@@ -1,9 +1,10 @@
 package wasm
 
 import (
+	"strings"
+
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	juno "github.com/forbole/juno/v3/types"
 	"github.com/gogo/protobuf/proto"
 	"github.com/samber/lo"
@@ -16,30 +17,32 @@ func (m *Module) HandleMsg(index int, msg sdk.Msg, tx *juno.Tx) error {
 		return nil
 	}
 
-	switch cosmosMsg := msg.(type) { //nolint:gocritic //bdjuno style
-	case *wasmtypes.MsgExecuteContract:
-		return m.handleMsgExecuteContract(index, cosmosMsg, tx)
+	switch cosmosMsg := msg.(type) {
+	case *wasmtypes.MsgInstantiateContract,
+		*wasmtypes.MsgInstantiateContract2,
+		*wasmtypes.MsgMigrateContract,
+		*wasmtypes.MsgExecuteContract:
+		return m.handleWasmRelatedAddress(index, cosmosMsg, tx)
 	}
 
 	return nil
 }
 
-func (m *Module) handleMsgExecuteContract(index int, msg *wasmtypes.MsgExecuteContract, tx *juno.Tx) error {
+func (m *Module) handleWasmRelatedAddress(index int, msg sdk.Msg, tx *juno.Tx) error {
 	// get the involved addresses with general parser first
-	addresses, err := m.messageParser(m.cdc, msg)
+	messageAddresses, err := m.messageParser(m.cdc, msg)
 	if err != nil {
 		return err
 	}
 
-	receivers := findStringEventAttributes(tx.Events, banktypes.EventTypeCoinReceived, banktypes.AttributeKeyReceiver)
-	if len(receivers) == 0 {
-		return nil
+	addresses := make(map[string]struct{})
+	for _, address := range messageAddresses {
+		addresses[address] = struct{}{}
 	}
+	// add address from event values
+	m.addBech32EventValues(addresses, tx.Events)
 
-	// we join and then do the Uniq since the receivers might be duplicated
-	addresses = lo.Uniq(append(addresses, receivers...))
-
-	// Marshal the value properly
+	// marshal the value properly
 	bz, err := m.cdc.MarshalJSON(msg)
 	if err != nil {
 		return err
@@ -50,29 +53,24 @@ func (m *Module) handleMsgExecuteContract(index int, msg *wasmtypes.MsgExecuteCo
 		index,
 		proto.MessageName(msg),
 		string(bz),
-		addresses,
+		lo.Keys(addresses),
 		tx.Height,
 	))
 }
 
-func findStringEventAttributes(events []tmtypes.Event, etype, attribute string) []string {
-	values := make([]string, 0)
+func (m *Module) addBech32EventValues(addressSet map[string]struct{}, events []tmtypes.Event) {
 	for _, ev := range sdk.StringifyEvents(events) {
-		if ev.Type == etype {
-			values = append(values, findAttributes(ev, attribute)...)
+		for _, attrItem := range ev.Attributes {
+			address := strings.Trim(strings.TrimSpace(attrItem.Value), `"`)
+			if !m.isBech32Address(address) {
+				continue
+			}
+			addressSet[address] = struct{}{}
 		}
 	}
-
-	return values
 }
 
-func findAttributes(ev sdk.StringEvent, attr string) []string {
-	values := make([]string, 0)
-	for _, attrItem := range ev.Attributes {
-		if attrItem.Key == attr {
-			values = append(values, attrItem.Value)
-		}
-	}
-
-	return values
+func (m *Module) isBech32Address(address string) bool {
+	_, err := sdk.AccAddressFromBech32(address)
+	return err == nil
 }

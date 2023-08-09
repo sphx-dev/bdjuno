@@ -2,10 +2,9 @@ package wasm
 
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/forbole/bdjuno/v3/database"
 	"github.com/forbole/juno/v3/modules"
 	junomessages "github.com/forbole/juno/v3/modules/messages"
-
-	"github.com/forbole/bdjuno/v3/database"
 )
 
 var (
@@ -21,7 +20,11 @@ type Module struct {
 }
 
 // NewModule returns a new Module instance
-func NewModule(messageParser junomessages.MessageAddressesParser, cdc codec.Codec, db *database.Db) *Module {
+func NewModule(
+	messageParser junomessages.MessageAddressesParser,
+	cdc codec.Codec,
+	db *database.Db,
+) *Module {
 	return &Module{
 		messageParser: messageParser,
 		cdc:           cdc,
