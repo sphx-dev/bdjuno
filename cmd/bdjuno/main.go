@@ -68,10 +68,12 @@ func getBasicManagers() []module.BasicManager {
 // This should be edited by custom implementations if needed.
 func getAddressesParser() messages.MessageAddressesParser {
 	return messages.JoinMessageParsers(
-		messages.CosmosMessageAddressesParser,
 		assetft.MessagesParser,
 		assetnft.MessagesParser,
 		nft.MessagesParser,
 		wasm.MessagesParser,
+		// the order is important since the CosmosMessageAddressesParser contains the default parser which takes the
+		// signer and which stops the execution
+		messages.CosmosMessageAddressesParser,
 	)
 }
