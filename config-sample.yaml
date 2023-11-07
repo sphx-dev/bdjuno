@@ -39,6 +39,7 @@ parsing:
     average_block_time: 1s
 
 database:
+    url: postgresql://root:password@postgres:5432/root?sslmode=disable&search_path=public
     name: root # This is the defaults, but might be updated
     host: postgres
     port: 5432
