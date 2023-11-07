@@ -3,9 +3,9 @@ package consensus
 import (
 	"sync"
 
-	"github.com/forbole/bdjuno/v3/database"
-	"github.com/forbole/juno/v3/modules"
-	tmtypes "github.com/tendermint/tendermint/types"
+	"github.com/forbole/bdjuno/v4/database"
+	"github.com/forbole/juno/v5/modules"
+	tmtypes "github.com/cometbft/cometbft/types"
 )
 
 var (

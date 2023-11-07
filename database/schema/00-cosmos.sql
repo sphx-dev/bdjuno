@@ -30,11 +30,11 @@ CREATE INDEX block_hash_index ON block (hash);
 CREATE INDEX block_proposer_address_index ON block (proposer_address);
 ALTER TABLE block
     SET (
-        autovacuum_vacuum_scale_factor = 0,
-        autovacuum_analyze_scale_factor = 0,
-        autovacuum_vacuum_threshold = 10000,
-        autovacuum_analyze_threshold = 10000
-        );
+    autovacuum_vacuum_scale_factor = 0,
+    autovacuum_analyze_scale_factor = 0,
+    autovacuum_vacuum_threshold = 10000,
+    autovacuum_analyze_threshold = 10000
+    );
 
 CREATE TABLE transaction
 (
@@ -99,7 +99,7 @@ SELECT * FROM message
 WHERE (cardinality(types) = 0 OR type = ANY (types))
   AND addresses && involved_accounts_addresses
 ORDER BY height DESC LIMIT "limit" OFFSET "offset"
-$$ LANGUAGE sql STABLE;
+    $$ LANGUAGE sql STABLE;
 
 CREATE TABLE pruning
 (

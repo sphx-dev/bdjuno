@@ -1,7 +1,7 @@
 package types
 
 import (
-	assetfttypes "github.com/CoreumFoundation/coreum/v2/x/asset/ft/types"
+	assetfttypes "github.com/CoreumFoundation/coreum/v3/x/asset/ft/types"
 )
 
 // AssetFTParams represents the parameters of the x/asset/ft module

@@ -5,18 +5,21 @@ import (
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/forbole/bdjuno/v3/modules/actions/logging"
-	"github.com/forbole/juno/v3/types"
+	"github.com/forbole/bdjuno/v4/modules/actions/logging"
+	"github.com/forbole/juno/v5/types"
+
 	"github.com/rs/zerolog/log"
-	tmctypes "github.com/tendermint/tendermint/rpc/core/types"
-	tmtypes "github.com/tendermint/tendermint/types"
+
+	tmctypes "github.com/cometbft/cometbft/rpc/core/types"
+	tmtypes "github.com/cometbft/cometbft/types"
 )
 
 // HandleBlock implements modules.Module
 func (m *Module) HandleBlock(
 	b *tmctypes.ResultBlock, _ *tmctypes.ResultBlockResults, _ []*types.Tx, vals *tmctypes.ResultValidators,
 ) error {
-	if err := m.updateBlockTimeFromGenesis(b); err != nil {
+	err := m.updateBlockTimeFromGenesis(b)
+	if err != nil {
 		log.Error().Str("module", "consensus").Int64("height", b.Block.Height).
 			Err(err).Msg("error while updating block time from genesis")
 	}

@@ -3,9 +3,10 @@ package database_test
 import (
 	"encoding/json"
 
-	customparamstypes "github.com/CoreumFoundation/coreum/v2/x/customparams/types"
-	dbtypes "github.com/forbole/bdjuno/v3/database/types"
-	"github.com/forbole/bdjuno/v3/types"
+	dbtypes "github.com/forbole/bdjuno/v4/database/types"
+	"github.com/forbole/bdjuno/v4/types"
+
+	customparamstypes "github.com/CoreumFoundation/coreum/v3/x/customparams/types"
 )
 
 func (suite *DbTestSuite) TestSaveCustomParamsParams() {
@@ -33,7 +34,7 @@ func (suite *DbTestSuite) TestGetCustomParamsParams() {
 	paramsBz, err := json.Marshal(&customparamsParams)
 	suite.Require().NoError(err)
 
-	_, err = suite.database.Sql.Exec(
+	_, err = suite.database.SQL.Exec(
 		`INSERT INTO customparams_params (staking_params, height) VALUES ($1, $2)`,
 		string(paramsBz), 10,
 	)

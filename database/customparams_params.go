@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/forbole/bdjuno/v3/types"
+	"github.com/forbole/bdjuno/v4/types"
 
-	dbtypes "github.com/forbole/bdjuno/v3/database/types"
+	dbtypes "github.com/forbole/bdjuno/v4/database/types"
 )
 
 // SaveCustomParamsParams saves the given x/customparams parameters inside the database
@@ -23,7 +23,7 @@ ON CONFLICT (one_row_id) DO UPDATE
 	SET staking_params = excluded.staking_params,
 		height = excluded.height
 WHERE customparams_params.height <= excluded.height`
-	_, err = db.Sql.Exec(stmt, string(stakingParamsBz), params.Height)
+	_, err = db.SQL.Exec(stmt, string(stakingParamsBz), params.Height)
 	if err != nil {
 		return fmt.Errorf("error while storing customparams params: %s", err)
 	}

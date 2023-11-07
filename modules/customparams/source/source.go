@@ -1,7 +1,7 @@
 package source
 
 import (
-	customparamstypes "github.com/CoreumFoundation/coreum/v2/x/customparams/types"
+	customparamstypes "github.com/CoreumFoundation/coreum/v3/x/customparams/types"
 )
 
 type Source interface {

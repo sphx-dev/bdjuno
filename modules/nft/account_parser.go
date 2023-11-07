@@ -1,9 +1,10 @@
 package nft
 
 import (
-	"github.com/CoreumFoundation/coreum/v2/x/nft"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	"github.com/CoreumFoundation/coreum/v3/x/nft"
 )
 
 // MessagesParser returns the list of all the accounts involved in the given

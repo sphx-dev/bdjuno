@@ -4,10 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	customparamstypes "github.com/CoreumFoundation/coreum/v2/x/customparams/types"
-	"github.com/forbole/bdjuno/v3/types"
+	tmtypes "github.com/cometbft/cometbft/types"
+	"github.com/forbole/bdjuno/v4/types"
 	"github.com/rs/zerolog/log"
-	tmtypes "github.com/tendermint/tendermint/types"
+
+	customparamstypes "github.com/CoreumFoundation/coreum/v3/x/customparams/types"
 )
 
 // HandleGenesis implements GenesisModule

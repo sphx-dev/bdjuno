@@ -1,9 +1,10 @@
 package remote
 
 import (
-	customparamstypes "github.com/CoreumFoundation/coreum/v2/x/customparams/types"
-	customparamssource "github.com/forbole/bdjuno/v3/modules/customparams/source"
-	"github.com/forbole/juno/v3/node/remote"
+	customparamssource "github.com/forbole/bdjuno/v4/modules/customparams/source"
+	"github.com/forbole/juno/v5/node/remote"
+
+	customparamstypes "github.com/CoreumFoundation/coreum/v3/x/customparams/types"
 )
 
 var (

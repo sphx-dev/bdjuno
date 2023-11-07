@@ -2,25 +2,25 @@ package main
 
 import (
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/forbole/juno/v3/cmd"
-	initcmd "github.com/forbole/juno/v3/cmd/init"
-	parsetypes "github.com/forbole/juno/v3/cmd/parse/types"
-	startcmd "github.com/forbole/juno/v3/cmd/start"
-	"github.com/forbole/juno/v3/modules/messages"
+	"github.com/forbole/juno/v5/cmd"
+	initcmd "github.com/forbole/juno/v5/cmd/init"
+	parsetypes "github.com/forbole/juno/v5/cmd/parse/types"
+	startcmd "github.com/forbole/juno/v5/cmd/start"
+	"github.com/forbole/juno/v5/modules/messages"
 
-	migratecmd "github.com/forbole/bdjuno/v3/cmd/migrate"
-	parsecmd "github.com/forbole/bdjuno/v3/cmd/parse"
+	migratecmd "github.com/forbole/bdjuno/v4/cmd/migrate"
+	parsecmd "github.com/forbole/bdjuno/v4/cmd/parse"
 
-	"github.com/forbole/bdjuno/v3/types/config"
+	"github.com/forbole/bdjuno/v4/types/config"
 
-	"github.com/forbole/bdjuno/v3/database"
-	"github.com/forbole/bdjuno/v3/modules"
-	"github.com/forbole/bdjuno/v3/modules/assetft"
-	"github.com/forbole/bdjuno/v3/modules/assetnft"
-	"github.com/forbole/bdjuno/v3/modules/nft"
-	"github.com/forbole/bdjuno/v3/modules/wasm"
+	"github.com/forbole/bdjuno/v4/database"
+	"github.com/forbole/bdjuno/v4/modules"
+	"github.com/forbole/bdjuno/v4/modules/assetft"
+	"github.com/forbole/bdjuno/v4/modules/assetnft"
+	"github.com/forbole/bdjuno/v4/modules/nft"
+	"github.com/forbole/bdjuno/v4/modules/wasm"
 
-	coreumapp "github.com/CoreumFoundation/coreum/v2/app"
+	coreumapp "github.com/CoreumFoundation/coreum/v3/app"
 )
 
 func main() {

@@ -3,9 +3,10 @@ package database_test
 import (
 	"encoding/json"
 
-	assetfttypes "github.com/CoreumFoundation/coreum/v2/x/asset/ft/types"
-	dbtypes "github.com/forbole/bdjuno/v3/database/types"
-	"github.com/forbole/bdjuno/v3/types"
+	dbtypes "github.com/forbole/bdjuno/v4/database/types"
+	"github.com/forbole/bdjuno/v4/types"
+
+	assetfttypes "github.com/CoreumFoundation/coreum/v3/x/asset/ft/types"
 )
 
 func (suite *DbTestSuite) TestSaveAssetFTParams() {
@@ -31,7 +32,7 @@ func (suite *DbTestSuite) TestGetAssetFTParams() {
 	paramsBz, err := json.Marshal(&assetFTParams)
 	suite.Require().NoError(err)
 
-	_, err = suite.database.Sql.Exec(
+	_, err = suite.database.SQL.Exec(
 		`INSERT INTO assetft_params (params, height) VALUES ($1, $2)`,
 		string(paramsBz), 10,
 	)

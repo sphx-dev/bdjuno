@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	assetfttypes "github.com/CoreumFoundation/coreum/v2/x/asset/ft/types"
-	dbtypes "github.com/forbole/bdjuno/v3/database/types"
-	"github.com/forbole/bdjuno/v3/types"
+	dbtypes "github.com/forbole/bdjuno/v4/database/types"
+	"github.com/forbole/bdjuno/v4/types"
+
+	assetfttypes "github.com/CoreumFoundation/coreum/v3/x/asset/ft/types"
 )
 
 // SaveAssetFTParams allows to store the given params into the database.
@@ -24,7 +25,7 @@ ON CONFLICT (one_row_id) DO UPDATE
         height = excluded.height
 WHERE assetft_params.height <= excluded.height`
 
-	_, err = db.Sql.Exec(stmt, string(paramsBz), params.Height)
+	_, err = db.SQL.Exec(stmt, string(paramsBz), params.Height)
 	if err != nil {
 		return fmt.Errorf("error while storing assetft params: %s", err)
 	}

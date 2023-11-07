@@ -1,8 +1,8 @@
 CREATE TYPE DEC_COIN AS
-(
+    (
     denom  TEXT,
     amount TEXT
-);
+    );
 
 /* ---- PARAMS ---- */
 

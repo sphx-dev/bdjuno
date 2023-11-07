@@ -1,9 +1,10 @@
 package remote
 
 import (
-	assetnfttypes "github.com/CoreumFoundation/coreum/v2/x/asset/nft/types"
-	assetnftsource "github.com/forbole/bdjuno/v3/modules/assetnft/source"
-	"github.com/forbole/juno/v3/node/remote"
+	assetnftsource "github.com/forbole/bdjuno/v4/modules/assetnft/source"
+	"github.com/forbole/juno/v5/node/remote"
+
+	assetnfttypes "github.com/CoreumFoundation/coreum/v3/x/asset/nft/types"
 )
 
 var (

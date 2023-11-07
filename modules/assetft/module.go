@@ -2,9 +2,9 @@ package assetft
 
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/forbole/bdjuno/v3/database"
-	assetftsource "github.com/forbole/bdjuno/v3/modules/assetft/source"
-	"github.com/forbole/juno/v3/modules"
+	"github.com/forbole/bdjuno/v4/database"
+	assetftsource "github.com/forbole/bdjuno/v4/modules/assetft/source"
+	"github.com/forbole/juno/v5/modules"
 )
 
 var (

@@ -4,11 +4,11 @@ import (
 	"strings"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
+	tmtypes "github.com/cometbft/cometbft/abci/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	juno "github.com/forbole/juno/v3/types"
+	juno "github.com/forbole/juno/v5/types"
 	"github.com/gogo/protobuf/proto"
 	"github.com/samber/lo"
-	tmtypes "github.com/tendermint/tendermint/abci/types"
 )
 
 // HandleMsg implements MessageModule

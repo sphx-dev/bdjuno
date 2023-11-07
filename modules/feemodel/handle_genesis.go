@@ -4,10 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	feemodeltypes "github.com/CoreumFoundation/coreum/v2/x/feemodel/types"
-	"github.com/forbole/bdjuno/v3/types"
+	tmtypes "github.com/cometbft/cometbft/types"
+	"github.com/forbole/bdjuno/v4/types"
 	"github.com/rs/zerolog/log"
-	tmtypes "github.com/tendermint/tendermint/types"
+
+	feemodeltypes "github.com/CoreumFoundation/coreum/v3/x/feemodel/types"
 )
 
 // HandleGenesis implements GenesisModule

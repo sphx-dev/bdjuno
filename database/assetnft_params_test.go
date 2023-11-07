@@ -3,9 +3,10 @@ package database_test
 import (
 	"encoding/json"
 
-	assetnfttypes "github.com/CoreumFoundation/coreum/v2/x/asset/nft/types"
-	dbtypes "github.com/forbole/bdjuno/v3/database/types"
-	"github.com/forbole/bdjuno/v3/types"
+	dbtypes "github.com/forbole/bdjuno/v4/database/types"
+	"github.com/forbole/bdjuno/v4/types"
+
+	assetnfttypes "github.com/CoreumFoundation/coreum/v3/x/asset/nft/types"
 )
 
 func (suite *DbTestSuite) TestSaveAssetNFTParams() {
@@ -31,7 +32,7 @@ func (suite *DbTestSuite) TestGetAssetNFTParams() {
 	paramsBz, err := json.Marshal(&assetNFTParams)
 	suite.Require().NoError(err)
 
-	_, err = suite.database.Sql.Exec(
+	_, err = suite.database.SQL.Exec(
 		`INSERT INTO assetnft_params (params, height) VALUES ($1, $2)`,
 		string(paramsBz), 10,
 	)
