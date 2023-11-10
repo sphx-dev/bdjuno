@@ -4,6 +4,8 @@ go 1.20
 
 replace github.com/cosmos/cosmos-sdk => github.com/cosmos/cosmos-sdk v0.47.2
 
+replace github.com/forbole/juno/v5 => github.com/CoreumFoundation/junov5/v5 v5.2.1-0.20231110094554-b0ce2d473cd4
+
 require (
 	cosmossdk.io/math v1.1.2
 	cosmossdk.io/simapp v0.0.0-20230224204036-a6adb0821462
