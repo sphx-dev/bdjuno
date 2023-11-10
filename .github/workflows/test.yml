@@ -39,10 +39,6 @@ jobs:
             .mod
             .sum
 
-      - name: Build 🔨
-        if: "env.GIT_DIFF != ''"
-        run: make build
-
       - name: Test & Coverage report creation 🧪
         run: make test-unit stop-docker-test
 
