@@ -14,21 +14,29 @@ all: lint build test-unit
 ###############################################################################
 
 LD_FLAGS = -X github.com/forbole/juno/v5/cmd.Version=$(VERSION) \
-	-X github.com/forbole/juno/v5/cmd.Commit=$(COMMIT) \
-	-linkmode=external -extldflags "-Wl,-z,muldefs -static"
-BUILD_FLAGS := -tags muslc -ldflags '$(LD_FLAGS)'
+	-X github.com/forbole/juno/v5/cmd.Commit=$(COMMIT)
+BUILD_FLAGS :=  -ldflags '$(LD_FLAGS)'
 
-##############################################################################
+ifeq ($(LINK_STATICALLY),true)
+  LD_FLAGS += -linkmode=external -extldflags "-Wl,-z,muldefs -static"
+endif
+
+build_tags += $(BUILD_TAGS)
+build_tags := $(strip $(build_tags))
+
+BUILD_FLAGS :=  -ldflags '$(LD_FLAGS)' -tags "$(build_tags)"
+
+###############################################################################
 ###                                  Build                                  ###
 ###############################################################################
 
 build: go.sum
 ifeq ($(OS),Windows_NT)
 	@echo "building bdjuno binary..."
-	@go build -mod=readonly $(BUILD_FLAGS) -o build/bdjuno.exe ./cmd/bdjuno
+	CGO_ENABLED=0 go build -mod=readonly $(BUILD_FLAGS) -o build/bdjuno.exe ./cmd/bdjuno
 else
 	@echo "building bdjuno binary..."
-	@go build -mod=readonly $(BUILD_FLAGS) -o build/bdjuno ./cmd/bdjuno
+	CGO_ENABLED=0 go build -mod=readonly $(BUILD_FLAGS) -o build/bdjuno ./cmd/bdjuno
 endif
 .PHONY: build
 
