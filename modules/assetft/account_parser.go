@@ -14,7 +14,11 @@ func MessagesParser(_ codec.Codec, cosmosMsg sdk.Msg) ([]string, error) {
 	case *assetfttypes.MsgIssue:
 		return []string{msg.Issuer}, nil
 	case *assetfttypes.MsgMint:
-		return []string{msg.Sender}, nil
+		accounts := []string{msg.Sender}
+		if msg.Recipient != "" {
+			accounts = append(accounts, msg.Recipient)
+		}
+		return accounts, nil
 	case *assetfttypes.MsgBurn:
 		return []string{msg.Sender}, nil
 	case *assetfttypes.MsgFreeze:
