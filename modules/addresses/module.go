@@ -1,4 +1,4 @@
-package wasm
+package addresses
 
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -12,7 +12,7 @@ var (
 	_ modules.MessageModule = &Module{}
 )
 
-// Module represents the x/staking module
+// Module represents the x/asset/ft module
 type Module struct {
 	cdc           codec.Codec
 	db            *database.Db
@@ -22,17 +22,16 @@ type Module struct {
 // NewModule returns a new Module instance
 func NewModule(
 	messageParser junomessages.MessageAddressesParser,
-	cdc codec.Codec,
-	db *database.Db,
+	cdc codec.Codec, db *database.Db,
 ) *Module {
 	return &Module{
-		messageParser: messageParser,
 		cdc:           cdc,
 		db:            db,
+		messageParser: messageParser,
 	}
 }
 
 // Name implements modules.Module
 func (m *Module) Name() string {
-	return "wasm"
+	return "addresses"
 }
