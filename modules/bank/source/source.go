@@ -9,6 +9,7 @@ import (
 type Source interface {
 	GetBalances(addresses []string, height int64) ([]types.AccountBalance, error)
 	GetSupply(height int64) (sdk.Coins, error)
+	GetAccountDenomBalance(address string, denom string, height int64) (*sdk.Coin, error)
 
 	// -- For hasura action --
 	GetAccountBalance(address string, height int64) ([]sdk.Coin, error)

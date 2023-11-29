@@ -79,7 +79,7 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 
 	actionsModule := actions.NewModule(ctx.JunoConfig, ctx.EncodingConfig)
 	authModule := auth.NewModule(r.parser, cdc, db)
-	bankModule := bank.NewModule(r.parser, sources.BankSource, cdc, db)
+	bankModule := bank.NewModule(r.parser, sources.BankSource, cdc, db, ctx.JunoConfig.Chain.Bech32Prefix)
 	consensusModule := consensus.NewModule(db)
 	dailyRefetchModule := dailyrefetch.NewModule(ctx.Proxy, db)
 	distrModule := distribution.NewModule(sources.DistrSource, cdc, db)

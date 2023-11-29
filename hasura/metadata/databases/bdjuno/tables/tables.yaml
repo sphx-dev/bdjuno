@@ -1,3 +1,4 @@
+- "!include public_account_denom_balance.yaml"
 - "!include public_account.yaml"
 - "!include public_average_block_time_from_genesis.yaml"
 - "!include public_average_block_time_per_day.yaml"
@@ -28,6 +29,7 @@
 - "!include public_staking_pool.yaml"
 - "!include public_supply.yaml"
 - "!include public_token.yaml"
+- "!include public_token_holder_count.yaml"
 - "!include public_token_price.yaml"
 - "!include public_token_price_history.yaml"
 - "!include public_token_unit.yaml"
