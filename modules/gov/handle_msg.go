@@ -6,17 +6,17 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/x/authz"
-
-	"github.com/forbole/bdjuno/v4/types"
-	"google.golang.org/grpc/codes"
-
+	sdktypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/x/authz"
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
-	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
-
 	gov "github.com/cosmos/cosmos-sdk/x/gov/types"
+	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
+	govtypesv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
+	"github.com/forbole/bdjuno/v4/types"
 	juno "github.com/forbole/juno/v5/types"
+	"github.com/samber/lo"
+	"google.golang.org/grpc/codes"
 )
 
 // HandleMsgExec implements modules.AuthzMessageModule
@@ -31,6 +31,59 @@ func (m *Module) HandleMsg(index int, msg sdk.Msg, tx *juno.Tx) error {
 	}
 
 	switch cosmosMsg := msg.(type) {
+	// legacy gov
+	case *govtypesv1beta1.MsgSubmitProposal:
+		msgSubmitProposal := msg.(*govtypesv1beta1.MsgSubmitProposal)
+		content, ok := msgSubmitProposal.Content.GetCachedValue().(govtypesv1beta1.Content)
+		if !ok {
+			return fmt.Errorf("failed to cast govtypesv1beta1.MsgSubmitProposal Content to govtypesv1beta1.Content, message:%s", msg.String())
+		}
+
+		return m.handleMsgSubmitProposal(tx, index, &govtypesv1.MsgSubmitProposal{
+			Messages:       []*sdktypes.Any{msgSubmitProposal.Content},
+			InitialDeposit: msgSubmitProposal.InitialDeposit,
+			Proposer:       msgSubmitProposal.Proposer,
+			Title:          content.GetTitle(),
+			Summary:        content.GetDescription(),
+			// v1 attribute
+			Metadata: "",
+		})
+
+	case *govtypesv1beta1.MsgDeposit:
+		msgDeposit := msg.(*govtypesv1beta1.MsgDeposit)
+		return m.handleMsgDeposit(tx, &govtypesv1.MsgDeposit{
+			ProposalId: msgDeposit.ProposalId,
+			Depositor:  msgDeposit.Depositor,
+			Amount:     msgDeposit.Amount,
+		})
+
+	case *govtypesv1beta1.MsgVote:
+		msgVote := msg.(*govtypesv1beta1.MsgVote)
+
+		return m.handleMsgVote(tx, &govtypesv1.MsgVote{
+			ProposalId: msgVote.ProposalId,
+			Voter:      msgVote.Voter,
+			Option:     govtypesv1.VoteOption(msgVote.Option),
+			// v1 attribute
+			Metadata: "",
+		})
+
+	case *govtypesv1beta1.MsgVoteWeighted:
+		msgVoteWeighted := msg.(*govtypesv1beta1.MsgVoteWeighted)
+		return m.handleMsgVoteWeighted(tx, &govtypesv1.MsgVoteWeighted{
+			ProposalId: msgVoteWeighted.ProposalId,
+			Voter:      msgVoteWeighted.Voter,
+			Options: lo.Map(msgVoteWeighted.Options, func(o govtypesv1beta1.WeightedVoteOption, _ int) *govtypesv1.WeightedVoteOption {
+				return &govtypesv1.WeightedVoteOption{
+					Option: govtypesv1.VoteOption(o.Option),
+					Weight: o.Weight.String(),
+				}
+			}),
+			// v1 attribute
+			Metadata: "",
+		})
+
+	// v1 gov
 	case *govtypesv1.MsgSubmitProposal:
 		return m.handleMsgSubmitProposal(tx, index, cosmosMsg)
 
