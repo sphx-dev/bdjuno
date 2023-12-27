@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strconv"
 
+	govtypesv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	"github.com/forbole/bdjuno/v4/modules/assetft"
 	"github.com/forbole/bdjuno/v4/modules/assetnft"
 	"github.com/forbole/bdjuno/v4/modules/customparams"
@@ -144,7 +145,10 @@ func refreshProposalDetails(parseCtx *parser.Context, proposalID uint64, govModu
 
 	// Handle the MsgSubmitProposal messages
 	for index, msg := range tx.GetMsgs() {
-		if _, ok := msg.(*govtypesv1.MsgSubmitProposal); !ok {
+		switch msg.(type) {
+		case *govtypesv1beta1.MsgSubmitProposal:
+		case *govtypesv1.MsgSubmitProposal:
+		default:
 			continue
 		}
 

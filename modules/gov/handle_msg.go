@@ -3,10 +3,8 @@ package gov
 import (
 	"fmt"
 	"strconv"
-	"strings"
 	"time"
 
-	sdktypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/authz"
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
@@ -16,7 +14,6 @@ import (
 	"github.com/forbole/bdjuno/v4/types"
 	juno "github.com/forbole/juno/v5/types"
 	"github.com/samber/lo"
-	"google.golang.org/grpc/codes"
 )
 
 // HandleMsgExec implements modules.AuthzMessageModule
@@ -33,21 +30,7 @@ func (m *Module) HandleMsg(index int, msg sdk.Msg, tx *juno.Tx) error {
 	switch cosmosMsg := msg.(type) {
 	// legacy gov
 	case *govtypesv1beta1.MsgSubmitProposal:
-		msgSubmitProposal := msg.(*govtypesv1beta1.MsgSubmitProposal)
-		content, ok := msgSubmitProposal.Content.GetCachedValue().(govtypesv1beta1.Content)
-		if !ok {
-			return fmt.Errorf("failed to cast govtypesv1beta1.MsgSubmitProposal Content to govtypesv1beta1.Content, message:%s", msg.String())
-		}
-
-		return m.handleMsgSubmitProposal(tx, index, &govtypesv1.MsgSubmitProposal{
-			Messages:       []*sdktypes.Any{msgSubmitProposal.Content},
-			InitialDeposit: msgSubmitProposal.InitialDeposit,
-			Proposer:       msgSubmitProposal.Proposer,
-			Title:          content.GetTitle(),
-			Summary:        content.GetDescription(),
-			// v1 attribute
-			Metadata: "",
-		})
+		return m.handleMsgSubmitProposal(tx, index, cosmosMsg.InitialDeposit)
 
 	case *govtypesv1beta1.MsgDeposit:
 		msgDeposit := msg.(*govtypesv1beta1.MsgDeposit)
@@ -85,7 +68,7 @@ func (m *Module) HandleMsg(index int, msg sdk.Msg, tx *juno.Tx) error {
 
 	// v1 gov
 	case *govtypesv1.MsgSubmitProposal:
-		return m.handleMsgSubmitProposal(tx, index, cosmosMsg)
+		return m.handleMsgSubmitProposal(tx, index, cosmosMsg.InitialDeposit)
 
 	case *govtypesv1.MsgDeposit:
 		return m.handleMsgDeposit(tx, cosmosMsg)
@@ -101,7 +84,7 @@ func (m *Module) HandleMsg(index int, msg sdk.Msg, tx *juno.Tx) error {
 }
 
 // handleMsgSubmitProposal allows to properly handle a MsgSubmitProposal
-func (m *Module) handleMsgSubmitProposal(tx *juno.Tx, index int, msg *govtypesv1.MsgSubmitProposal) error {
+func (m *Module) handleMsgSubmitProposal(tx *juno.Tx, index int, initialDeposit sdk.Coins) error {
 	// Get the proposal id
 	event, err := tx.FindEventByType(index, gov.EventTypeSubmitProposal)
 	if err != nil {
@@ -119,22 +102,13 @@ func (m *Module) handleMsgSubmitProposal(tx *juno.Tx, index int, msg *govtypesv1
 	}
 
 	// Get the proposal
-	proposal, err := m.source.Proposal(tx.Height, proposalID)
+	block, err := m.db.GetLastBlockHeightAndTimestamp()
 	if err != nil {
-		if strings.Contains(err.Error(), codes.NotFound.String()) {
-			// query the proposal details using the latest height stored in db
-			// to fix the rpc error returning code = NotFound desc = proposal x doesn't exist
-			block, err := m.db.GetLastBlockHeightAndTimestamp()
-			if err != nil {
-				return fmt.Errorf("error while getting latest block height: %s", err)
-			}
-			proposal, err = m.source.Proposal(block.Height, proposalID)
-			if err != nil {
-				return fmt.Errorf("error while getting proposal: %s", err)
-			}
-		} else {
-			return fmt.Errorf("error while getting proposal: %s", err)
-		}
+		return fmt.Errorf("error while getting latest block height: %s", err)
+	}
+	proposal, err := m.source.Proposal(block.Height, proposalID)
+	if err != nil {
+		return fmt.Errorf("error while getting proposal: %s", err)
 	}
 
 	var addresses []types.Account
@@ -167,13 +141,13 @@ func (m *Module) handleMsgSubmitProposal(tx *juno.Tx, index int, msg *govtypesv1
 		proposal.Title,
 		proposal.Summary,
 		proposal.Metadata,
-		msg.Messages,
+		proposal.Messages,
 		proposal.Status.String(),
 		*proposal.SubmitTime,
 		*proposal.DepositEndTime,
 		proposal.VotingStartTime,
 		proposal.VotingEndTime,
-		msg.Proposer,
+		proposal.Proposer,
 	)
 
 	err = m.db.SaveProposals([]types.Proposal{proposalObj})
@@ -187,7 +161,7 @@ func (m *Module) handleMsgSubmitProposal(tx *juno.Tx, index int, msg *govtypesv1
 	}
 
 	// Store the deposit
-	deposit := types.NewDeposit(proposal.Id, msg.Proposer, msg.InitialDeposit, txTimestamp, tx.TxHash, tx.Height)
+	deposit := types.NewDeposit(proposal.Id, proposal.Proposer, initialDeposit, txTimestamp, tx.TxHash, tx.Height)
 	return m.db.SaveDeposits([]types.Deposit{deposit})
 }
 
