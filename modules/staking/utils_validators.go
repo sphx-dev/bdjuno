@@ -2,9 +2,11 @@ package staking
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/forbole/bdjuno/v4/modules/staking/keybase"
 	"github.com/forbole/bdjuno/v4/types"
+	"google.golang.org/grpc/codes"
 
 	"github.com/rs/zerolog/log"
 
@@ -80,14 +82,40 @@ func (m *Module) convertValidatorDescription(
 // RefreshAllValidatorInfos refreshes the info of all the validators at the given height
 func (m *Module) RefreshAllValidatorInfos(height int64) error {
 	// Get all validators
-	validators, err := m.source.GetValidatorsWithStatus(height, "")
+	validatorsFromDb, err := m.db.GetValidators()
 	if err != nil {
-		return fmt.Errorf("error while getting validators: %s", err)
+		return fmt.Errorf("error while getting validators from db: %s", err)
+	}
+
+	validatorsFromHeight, err := m.source.GetValidatorsWithStatus(height, "")
+	if err != nil {
+		return fmt.Errorf("error while getting validators from db: %s", err)
+	}
+
+	validators := make([]types.Validator, 0)
+	validatorsMap := make(map[string]bool)
+
+	for _, validator := range validatorsFromDb {
+		validators = append(validators, validator)
+		validatorsMap[validator.GetOperator()] = true
+	}
+
+	for _, validator := range validatorsFromHeight {
+		// Check if the validator already exists in validatorsFromDb
+		if _, exists := validatorsMap[validator.OperatorAddress]; !exists {
+			// Convert and append the validator if it doesn't exist in validatorsFromDb
+			convertedValidator, err := m.convertValidator(height, validator)
+			if err != nil {
+				return fmt.Errorf("error while converting validator: %s", err)
+			}
+			validators = append(validators, convertedValidator)
+			validatorsMap[validator.OperatorAddress] = true
+		}
 	}
 
 	// Refresh each validator
 	for _, validator := range validators {
-		err = m.RefreshValidatorInfos(height, validator.OperatorAddress)
+		err = m.RefreshValidatorInfos(height, validator.GetOperator())
 		if err != nil {
 			return fmt.Errorf("error while refreshing validator: %s", err)
 		}
@@ -98,12 +126,27 @@ func (m *Module) RefreshAllValidatorInfos(height int64) error {
 
 // RefreshValidatorInfos refreshes the info for the validator with the given operator address at the provided height
 func (m *Module) RefreshValidatorInfos(height int64, valOper string) error {
+	validator := types.NewValidator(valOper, "", "", "", nil, nil, height)
 	stakingValidator, err := m.source.GetValidator(height, valOper)
 	if err != nil {
+		if strings.Contains(err.Error(), codes.NotFound.String()) {
+			validator, err = m.db.GetValidator(valOper)
+			if err != nil {
+				return fmt.Errorf("error while getting validator from db: %s", err)
+			}
+
+			err = m.db.SaveValidatorsStatuses([]types.ValidatorStatus{types.NewValidatorStatus(validator.GetConsAddr(), validator.GetConsPubKey(), int(stakingtypes.Unbonded), true, height)})
+			if err != nil {
+				return fmt.Errorf("error while saving validator status to db: %s", err)
+			}
+
+			return nil
+		}
+
 		return err
 	}
 
-	validator, err := m.convertValidator(height, stakingValidator)
+	validator, err = m.convertValidator(height, stakingValidator)
 	if err != nil {
 		return fmt.Errorf("error while converting validator: %s", err)
 	}
