@@ -4,6 +4,10 @@ import (
 	"github.com/forbole/bdjuno/v4/types"
 )
 
+type AuthModule interface {
+	UpdateParams(height int64) error
+}
+
 type DistrModule interface {
 	UpdateParams(height int64) error
 }

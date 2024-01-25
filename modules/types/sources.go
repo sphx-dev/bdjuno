@@ -9,6 +9,7 @@ import (
 	"github.com/cometbft/cometbft/libs/log"
 	"github.com/forbole/juno/v5/node/remote"
 
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
@@ -29,6 +30,8 @@ import (
 
 	remoteassetftsource "github.com/forbole/bdjuno/v4/modules/assetft/source/remote"
 	remoteassetnftsource "github.com/forbole/bdjuno/v4/modules/assetnft/source/remote"
+	authsource "github.com/forbole/bdjuno/v4/modules/auth/source"
+	remoteauthsource "github.com/forbole/bdjuno/v4/modules/auth/source/remote"
 	banksource "github.com/forbole/bdjuno/v4/modules/bank/source"
 	localbanksource "github.com/forbole/bdjuno/v4/modules/bank/source/local"
 	remotebanksource "github.com/forbole/bdjuno/v4/modules/bank/source/remote"
@@ -53,6 +56,7 @@ import (
 )
 
 type Sources struct {
+	AuthSource         authsource.Source
 	BankSource         banksource.Source
 	DistrSource        distrsource.Source
 	GovSource          govsource.Source
@@ -127,6 +131,7 @@ func buildRemoteSources(cfg *remote.Details) (*Sources, error) {
 	}
 
 	return &Sources{
+		AuthSource:         remoteauthsource.NewSource(source, authtypes.NewQueryClient(source.GrpcConn)),
 		BankSource:         remotebanksource.NewSource(source, banktypes.NewQueryClient(source.GrpcConn)),
 		DistrSource:        remotedistrsource.NewSource(source, distrtypes.NewQueryClient(source.GrpcConn)),
 		GovSource:          remotegovsource.NewSource(source, govtypesv1.NewQueryClient(source.GrpcConn)),

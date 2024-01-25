@@ -38,7 +38,7 @@ func main() {
 	rootCmd.AddCommand(
 		cmd.VersionCmd(),
 		initcmd.NewInitCmd(cfg.GetInitConfig()),
-		parsecmd.NewParseCmd(cfg.GetParseConfig()),
+		parsecmd.NewParseCmd(cfg.GetParseConfig(), getAddressesParser()),
 		migratecmd.NewMigrateCmd(cfg.GetName(), cfg.GetParseConfig()),
 		startcmd.NewStartCmd(cfg.GetParseConfig()),
 	)

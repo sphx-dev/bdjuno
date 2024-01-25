@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	govtypesv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
@@ -126,6 +127,11 @@ func (m *Module) updateDeletedProposalStatus(id uint64) error {
 // handleParamChangeProposal updates params to the corresponding modules if a ParamChangeProposal has passed
 func (m *Module) handleParamChangeProposal(height int64, moduleName string) (err error) {
 	switch moduleName {
+	case authtypes.ModuleName:
+		err = m.authModule.UpdateParams(height)
+		if err != nil {
+			return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", authtypes.ModuleName, err)
+		}
 	case distrtypes.ModuleName:
 		err = m.distrModule.UpdateParams(height)
 		if err != nil {

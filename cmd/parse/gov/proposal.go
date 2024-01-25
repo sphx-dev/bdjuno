@@ -8,8 +8,10 @@ import (
 	govtypesv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	"github.com/forbole/bdjuno/v4/modules/assetft"
 	"github.com/forbole/bdjuno/v4/modules/assetnft"
+	"github.com/forbole/bdjuno/v4/modules/auth"
 	"github.com/forbole/bdjuno/v4/modules/customparams"
 	"github.com/forbole/bdjuno/v4/modules/feemodel"
+	"github.com/forbole/juno/v5/modules/messages"
 	"github.com/rs/zerolog/log"
 
 	modulestypes "github.com/forbole/bdjuno/v4/modules/types"
@@ -30,7 +32,7 @@ import (
 )
 
 // proposalCmd returns the Cobra command allowing to fix all things related to a proposal
-func proposalCmd(parseConfig *parsecmdtypes.Config) *cobra.Command {
+func proposalCmd(parseConfig *parsecmdtypes.Config, messagesParser messages.MessageAddressesParser) *cobra.Command {
 	return &cobra.Command{
 		Use:   "proposal [id]",
 		Short: "Get the description, votes and everything related to a proposal given its id",
@@ -54,6 +56,7 @@ func proposalCmd(parseConfig *parsecmdtypes.Config) *cobra.Command {
 			db := database.Cast(parseCtx.Database)
 
 			// Build expected modules of gov modules for handleParamChangeProposal
+			authModule := auth.NewModule(sources.AuthSource, messagesParser, parseCtx.EncodingConfig.Codec, db)
 			distrModule := distribution.NewModule(sources.DistrSource, parseCtx.EncodingConfig.Codec, db)
 			mintModule := mint.NewModule(sources.MintSource, parseCtx.EncodingConfig.Codec, db)
 			slashingModule := slashing.NewModule(sources.SlashingSource, parseCtx.EncodingConfig.Codec, db)
@@ -66,6 +69,7 @@ func proposalCmd(parseConfig *parsecmdtypes.Config) *cobra.Command {
 			// Build the gov module
 			govModule := gov.NewModule(
 				sources.GovSource,
+				authModule,
 				distrModule,
 				mintModule,
 				slashingModule,

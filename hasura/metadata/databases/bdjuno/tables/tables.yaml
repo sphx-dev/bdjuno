@@ -47,3 +47,4 @@
 - "!include public_customparams_params.yaml"
 - "!include public_assetft_params.yaml"
 - "!include public_assetnft_params.yaml"
+- "!include public_auth_params.yaml"

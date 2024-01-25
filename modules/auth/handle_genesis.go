@@ -5,12 +5,14 @@ import (
 	"fmt"
 
 	tmtypes "github.com/cometbft/cometbft/types"
+	authttypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+	"github.com/forbole/bdjuno/v4/types"
 
 	"github.com/rs/zerolog/log"
 )
 
 // HandleGenesis implements modules.GenesisModule
-func (m *Module) HandleGenesis(_ *tmtypes.GenesisDoc, appState map[string]json.RawMessage) error {
+func (m *Module) HandleGenesis(doc *tmtypes.GenesisDoc, appState map[string]json.RawMessage) error {
 	log.Debug().Str("module", "auth").Msg("parsing genesis")
 
 	accounts, err := GetGenesisAccounts(appState, m.cdc)
@@ -29,6 +31,16 @@ func (m *Module) HandleGenesis(_ *tmtypes.GenesisDoc, appState map[string]json.R
 	err = m.db.SaveVestingAccounts(vestingAccounts)
 	if err != nil {
 		return fmt.Errorf("error while storing genesis vesting accounts: %s", err)
+	}
+
+	var genState authttypes.GenesisState
+	if err := m.cdc.UnmarshalJSON(appState[authttypes.ModuleName], &genState); err != nil {
+		return err
+	}
+
+	err = m.db.SaveAuthParams(types.NewAuthParams(genState.Params, doc.InitialHeight))
+	if err != nil {
+		return fmt.Errorf("error while storing genesis auth params: %s", err)
 	}
 
 	return nil
