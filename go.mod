@@ -2,19 +2,17 @@ module github.com/forbole/bdjuno/v4
 
 go 1.20
 
-replace github.com/forbole/juno/v5 => github.com/CoreumFoundation/junov5/v5 v5.2.1-0.20231110094554-b0ce2d473cd4
+replace github.com/forbole/juno/v5 => github.com/CoreumFoundation/junov5/v5 v5.2.1-0.20240126121118-d3d301084ce7
 
 require (
 	cosmossdk.io/math v1.1.2
 	cosmossdk.io/simapp v0.0.0-20230831152633-2e9e5d6eea24
 	github.com/CoreumFoundation/coreum/v3 v3.0.0-20231109135250-9c76e4fab1d0
-	github.com/CosmWasm/wasmd v0.44.0
 	github.com/cometbft/cometbft v0.37.2
 	github.com/cosmos/cosmos-sdk v0.47.5
 	github.com/cosmos/gogoproto v1.4.10
 	github.com/forbole/juno/v5 v5.2.0
 	github.com/go-co-op/gocron v1.35.0
-	github.com/gogo/protobuf v1.3.2
 	github.com/golangci/golangci-lint v1.54.2
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/lib/pq v1.10.9
@@ -52,6 +50,7 @@ require (
 	github.com/Antonboom/nilnil v0.1.7 // indirect
 	github.com/BurntSushi/toml v1.3.2 // indirect
 	github.com/ChainSafe/go-schnorrkel v0.0.0-20200405005733-88cbf1b4c40d // indirect
+	github.com/CosmWasm/wasmd v0.44.0 // indirect
 	github.com/CosmWasm/wasmvm v1.5.0 // indirect
 	github.com/Djarvur/go-err113 v0.0.0-20210108212216-aea10b59be24 // indirect
 	github.com/GaijinEntertainment/go-exhaustruct/v3 v3.1.0 // indirect
@@ -138,6 +137,7 @@ require (
 	github.com/godbus/dbus v0.0.0-20190726142602-4481cbc300e2 // indirect
 	github.com/gofrs/flock v0.8.1 // indirect
 	github.com/gogo/googleapis v1.4.1 // indirect
+	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/glog v1.1.2 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/mock v1.6.0 // indirect

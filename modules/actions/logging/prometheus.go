@@ -37,8 +37,8 @@ var BlockTimeGauge = prometheus.NewGaugeVec(
 	},
 )
 
-// ProposalCounter represents the Telemetry counter used to track proposals
-var ProposalCounter = prometheus.NewSummaryVec(
+// ProposalSummary represents the Telemetry summary used to track proposals
+var ProposalSummary = prometheus.NewSummaryVec(
 	prometheus.SummaryOpts{
 		Name: "bdjuno_proposal",
 		Help: "Counts successful proposals.",
@@ -47,29 +47,26 @@ var ProposalCounter = prometheus.NewSummaryVec(
 	},
 )
 
+// ValidatorBlockMismatchCounter represents the Telemetry counter used to track cases when height in processed block
+// differs from the one in returned validator set.
+var ValidatorBlockMismatchCounter = prometheus.NewCounter(
+	prometheus.CounterOpts{
+		Name: "bdjuno_validator_block_mismatch",
+		Help: "Total number of mismatched block heights in validator set.",
+	},
+)
+
 func init() {
-	err := prometheus.Register(ActionResponseTime)
-	if err != nil {
-		panic(err)
-	}
-
-	err = prometheus.Register(ActionCounter)
-	if err != nil {
-		panic(err)
-	}
-
-	err = prometheus.Register(ActionErrorCounter)
-	if err != nil {
-		panic(err)
-	}
-
-	err = prometheus.Register(BlockTimeGauge)
-	if err != nil {
-		panic(err)
-	}
-
-	err = prometheus.Register(ProposalCounter)
-	if err != nil {
-		panic(err)
+	for _, c := range []prometheus.Collector{
+		ActionResponseTime,
+		ActionCounter,
+		ActionErrorCounter,
+		BlockTimeGauge,
+		ProposalSummary,
+		ValidatorBlockMismatchCounter,
+	} {
+		if err := prometheus.Register(c); err != nil {
+			panic(err)
+		}
 	}
 }

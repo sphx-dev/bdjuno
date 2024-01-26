@@ -52,6 +52,13 @@ func (m *Module) updateBlockTimeFromGenesis(block *tmctypes.ResultBlock) error {
 }
 
 func (m *Module) countProposalsByValidator(block *tmctypes.ResultBlock, vals *tmctypes.ResultValidators) {
+	if block.Block.Height != vals.BlockHeight {
+		log.Warn().Int64("blockHeight", block.Block.Height).Int64("valHeight", vals.BlockHeight).
+			Msg("block height and validator height don't match")
+		logging.ValidatorBlockMismatchCounter.Inc()
+		return
+	}
+
 	expectedNextProposer := vals.Validators[0]
 	if len(vals.Validators) > 1 {
 		for _, v := range vals.Validators[1:] {
@@ -100,5 +107,5 @@ func updateProposerMetric(expected, real tmtypes.Address) {
 	if bytes.Equal(expected, real) {
 		value = 1.0
 	}
-	logging.ProposalCounter.WithLabelValues(sdk.ConsAddress(expected).String()).Observe(value)
+	logging.ProposalSummary.WithLabelValues(sdk.ConsAddress(expected).String()).Observe(value)
 }
