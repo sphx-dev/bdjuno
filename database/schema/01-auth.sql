@@ -32,3 +32,12 @@ CREATE TABLE vesting_period
     length              BIGINT  NOT NULL,
     amount              COIN[]  NOT NULL DEFAULT '{}'
 );
+
+CREATE TABLE auth_params
+(
+    one_row_id BOOLEAN NOT NULL DEFAULT TRUE PRIMARY KEY,
+    params     JSONB   NOT NULL,
+    height     BIGINT  NOT NULL,
+    CHECK (one_row_id)
+);
+CREATE INDEX auth_params_height_index ON auth_params (height);
