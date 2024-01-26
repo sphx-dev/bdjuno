@@ -378,7 +378,11 @@ func (db *Db) SaveValidatorsVotingPowers(entries []types.ValidatorVotingPower) e
 	for i, entry := range entries {
 		pi := i * 3
 		stmt += fmt.Sprintf("($%d,$%d,$%d),", pi+1, pi+2, pi+3)
-		params = append(params, entry.ConsensusAddress, entry.VotingPower, entry.Height)
+		if entry.Height == 0 {
+			params = append(params, entry.ConsensusAddress, entry.VotingPower, nil)
+		} else {
+			params = append(params, entry.ConsensusAddress, entry.VotingPower, entry.Height)
+		}
 	}
 
 	stmt = stmt[:len(stmt)-1]

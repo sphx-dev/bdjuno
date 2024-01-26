@@ -106,7 +106,10 @@ func (m *Module) saveValidators(doc *tmtypes.GenesisDoc, validators stakingtypes
 		vals[i] = validator
 	}
 
-	return m.db.SaveValidatorsData(vals)
+	if err := m.db.SaveValidatorsData(vals); err != nil {
+		return err
+	}
+	return m.UpdateValidatorStatuses()
 }
 
 // saveValidatorDescription saves the description for the given validators

@@ -54,7 +54,7 @@ func (m *Module) handleMsgCreateValidator(height int64, msg *stakingtypes.MsgCre
 	if err != nil {
 		return fmt.Errorf("error while refreshing validator from MsgCreateValidator: %s", err)
 	}
-	return nil
+	return m.UpdateValidatorStatuses()
 }
 
 // handleEditValidator handles MsgEditValidator utils, updating the validator info
