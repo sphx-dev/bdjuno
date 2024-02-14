@@ -3,6 +3,7 @@ package consensus
 import (
 	"bytes"
 	"fmt"
+	"strconv"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/forbole/bdjuno/v4/modules/actions/logging"
@@ -24,8 +25,9 @@ func (m *Module) HandleBlock(
 			Err(err).Msg("error while updating block time from genesis")
 	}
 
-	m.countProposalsByValidator(b, vals)
+	logging.BlockRoundSummary.WithLabelValues(strconv.Itoa(int(b.Block.LastCommit.Round))).Observe(1.0)
 
+	m.countProposalsByValidator(b, vals)
 	return nil
 }
 

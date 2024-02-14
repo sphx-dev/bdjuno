@@ -56,6 +56,16 @@ var ValidatorBlockMismatchCounter = prometheus.NewCounter(
 	},
 )
 
+// BlockRoundSummary represents the Telemetry summary used to track block proposal rounds
+var BlockRoundSummary = prometheus.NewSummaryVec(
+	prometheus.SummaryOpts{
+		Name: "bdjuno_block_round",
+		Help: "Counts block rounds.",
+	}, []string{
+		"round",
+	},
+)
+
 func init() {
 	for _, c := range []prometheus.Collector{
 		ActionResponseTime,
@@ -64,6 +74,7 @@ func init() {
 		BlockTimeGauge,
 		ProposalSummary,
 		ValidatorBlockMismatchCounter,
+		BlockRoundSummary,
 	} {
 		if err := prometheus.Register(c); err != nil {
 			panic(err)
