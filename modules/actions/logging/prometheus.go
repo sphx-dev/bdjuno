@@ -66,6 +66,18 @@ var BlockRoundSummary = prometheus.NewSummaryVec(
 	},
 )
 
+// VoteTimeHistogram represents the Telemetry histogram used to track voting times
+var VoteTimeHistogram = prometheus.NewHistogramVec(
+	prometheus.HistogramOpts{
+		Name:    "bdjuno_vote_time",
+		Help:    "Measures time required to vote.",
+		Buckets: []float64{250, 500, 750, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 7000},
+	}, []string{
+		"proposer",
+		"voter",
+	},
+)
+
 func init() {
 	for _, c := range []prometheus.Collector{
 		ActionResponseTime,
@@ -75,6 +87,7 @@ func init() {
 		ProposalSummary,
 		ValidatorBlockMismatchCounter,
 		BlockRoundSummary,
+		VoteTimeHistogram,
 	} {
 		if err := prometheus.Register(c); err != nil {
 			panic(err)

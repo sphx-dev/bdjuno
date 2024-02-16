@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"strconv"
+	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/forbole/bdjuno/v4/modules/actions/logging"
@@ -28,6 +29,8 @@ func (m *Module) HandleBlock(
 	logging.BlockRoundSummary.WithLabelValues(strconv.Itoa(int(b.Block.LastCommit.Round))).Observe(1.0)
 
 	m.countProposalsByValidator(b, vals)
+	m.measureVotingTimes(b)
+
 	return nil
 }
 
@@ -110,4 +113,21 @@ func updateProposerMetric(expected, real tmtypes.Address) {
 		value = 1.0
 	}
 	logging.ProposalSummary.WithLabelValues(sdk.ConsAddress(expected).String()).Observe(value)
+}
+
+func (m *Module) measureVotingTimes(block *tmctypes.ResultBlock) {
+	proposerAddr := block.Block.ProposerAddress.Bytes()
+
+	var proposerVoteTime time.Time
+	for _, s := range block.Block.LastCommit.Signatures {
+		if bytes.Equal(s.ValidatorAddress.Bytes(), proposerAddr) {
+			proposerVoteTime = s.Timestamp
+			break
+		}
+	}
+	proposer := sdk.ConsAddress(block.Block.ProposerAddress).String()
+	for _, s := range block.Block.LastCommit.Signatures {
+		logging.VoteTimeHistogram.WithLabelValues(proposer, sdk.ConsAddress(s.ValidatorAddress).String()).
+			Observe(float64(s.Timestamp.Sub(proposerVoteTime)) / float64(time.Millisecond))
+	}
 }
