@@ -1,11 +1,7 @@
-.idea/
-build/
-
-# Configuration
+.idea
 .bdjuno
 *.toml
 *.json
 config.yaml
-
-# Coverage
-coverage.*
+/coverage
+/bin
