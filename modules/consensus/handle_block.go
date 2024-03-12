@@ -64,10 +64,13 @@ func (m *Module) countProposalsByValidator(block *tmctypes.ResultBlock, vals *tm
 		return
 	}
 
+	// Based on https://github.com/cometbft/cometbft/blob/613d602e48adc723e41bd4c9a9ba37a95a510c7c/types/validator.go#L65
 	expectedNextProposer := vals.Validators[0]
 	if len(vals.Validators) > 1 {
 		for _, v := range vals.Validators[1:] {
-			if v.ProposerPriority > expectedNextProposer.ProposerPriority {
+			if v.ProposerPriority > expectedNextProposer.ProposerPriority ||
+				(v.ProposerPriority == expectedNextProposer.ProposerPriority &&
+					bytes.Compare(v.Address, expectedNextProposer.Address) < 0) {
 				expectedNextProposer = v
 			}
 		}
