@@ -25,6 +25,11 @@ func Tidy(ctx context.Context, deps build.DepsFunc) error {
 	return golang.Tidy(ctx, repoPath, deps)
 }
 
+// DownloadDependencies downloads go dependencies.
+func DownloadDependencies(ctx context.Context, deps build.DepsFunc) error {
+	return golang.DownloadDependencies(ctx, repoPath, deps)
+}
+
 // Test run unit tests in bdjuno repo.
 func Test(ctx context.Context, deps build.DepsFunc) error {
 	return golang.Test(ctx, repoPath, deps)
