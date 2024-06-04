@@ -4,7 +4,7 @@ import (
 	feemodelsource "github.com/forbole/bdjuno/v4/modules/feemodel/source"
 	"github.com/forbole/juno/v5/node/remote"
 
-	feemodeltypes "github.com/CoreumFoundation/coreum/v3/x/feemodel/types"
+	feemodeltypes "github.com/CoreumFoundation/coreum/v4/x/feemodel/types"
 )
 
 var (

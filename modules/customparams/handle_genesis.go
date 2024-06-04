@@ -8,7 +8,7 @@ import (
 	"github.com/forbole/bdjuno/v4/types"
 	"github.com/rs/zerolog/log"
 
-	customparamstypes "github.com/CoreumFoundation/coreum/v3/x/customparams/types"
+	customparamstypes "github.com/CoreumFoundation/coreum/v4/x/customparams/types"
 )
 
 // HandleGenesis implements GenesisModule

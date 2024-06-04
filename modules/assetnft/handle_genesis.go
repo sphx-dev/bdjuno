@@ -8,7 +8,7 @@ import (
 	"github.com/forbole/bdjuno/v4/types"
 	"github.com/rs/zerolog/log"
 
-	assetnfttypes "github.com/CoreumFoundation/coreum/v3/x/asset/nft/types"
+	assetnfttypes "github.com/CoreumFoundation/coreum/v4/x/asset/nft/types"
 )
 
 // HandleGenesis implements GenesisModule

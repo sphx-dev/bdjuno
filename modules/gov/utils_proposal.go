@@ -11,10 +11,10 @@ import (
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	"github.com/rs/zerolog/log"
 
-	assetfttypes "github.com/CoreumFoundation/coreum/v3/x/asset/ft/types"
-	assetnfttypes "github.com/CoreumFoundation/coreum/v3/x/asset/nft/types"
-	customparamstypes "github.com/CoreumFoundation/coreum/v3/x/customparams/types"
-	feemodeltypes "github.com/CoreumFoundation/coreum/v3/x/feemodel/types"
+	assetfttypes "github.com/CoreumFoundation/coreum/v4/x/asset/ft/types"
+	assetnfttypes "github.com/CoreumFoundation/coreum/v4/x/asset/nft/types"
+	customparamstypes "github.com/CoreumFoundation/coreum/v4/x/customparams/types"
+	feemodeltypes "github.com/CoreumFoundation/coreum/v4/x/feemodel/types"
 
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	proposaltypes "github.com/cosmos/cosmos-sdk/x/params/types/proposal"

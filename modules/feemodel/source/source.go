@@ -1,7 +1,7 @@
 package source
 
 import (
-	feemodeltypes "github.com/CoreumFoundation/coreum/v3/x/feemodel/types"
+	feemodeltypes "github.com/CoreumFoundation/coreum/v4/x/feemodel/types"
 )
 
 type Source interface {

@@ -6,7 +6,7 @@ import (
 	dbtypes "github.com/forbole/bdjuno/v4/database/types"
 	"github.com/forbole/bdjuno/v4/types"
 
-	customparamstypes "github.com/CoreumFoundation/coreum/v3/x/customparams/types"
+	customparamstypes "github.com/CoreumFoundation/coreum/v4/x/customparams/types"
 )
 
 func (suite *DbTestSuite) TestSaveCustomParamsParams() {

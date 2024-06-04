@@ -8,7 +8,7 @@ import (
 	"github.com/forbole/bdjuno/v4/types"
 	"github.com/rs/zerolog/log"
 
-	feemodeltypes "github.com/CoreumFoundation/coreum/v3/x/feemodel/types"
+	feemodeltypes "github.com/CoreumFoundation/coreum/v4/x/feemodel/types"
 )
 
 // HandleGenesis implements GenesisModule

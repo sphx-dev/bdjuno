@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM golang:1.20-alpine AS builder
+FROM --platform=$BUILDPLATFORM golang:1.21-alpine AS builder
 RUN apk update && apk add --no-cache make git gcc libc-dev
 WORKDIR /go/src/github.com/forbole/bdjuno
 COPY . ./

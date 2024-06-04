@@ -7,7 +7,7 @@ import (
 	dbtypes "github.com/forbole/bdjuno/v4/database/types"
 	"github.com/forbole/bdjuno/v4/types"
 
-	assetfttypes "github.com/CoreumFoundation/coreum/v3/x/asset/ft/types"
+	assetfttypes "github.com/CoreumFoundation/coreum/v4/x/asset/ft/types"
 )
 
 // SaveAssetFTParams allows to store the given params into the database.

@@ -4,7 +4,7 @@ import (
 	customparamssource "github.com/forbole/bdjuno/v4/modules/customparams/source"
 	"github.com/forbole/juno/v5/node/remote"
 
-	customparamstypes "github.com/CoreumFoundation/coreum/v3/x/customparams/types"
+	customparamstypes "github.com/CoreumFoundation/coreum/v4/x/customparams/types"
 )
 
 var (

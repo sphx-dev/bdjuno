@@ -21,10 +21,10 @@ import (
 	assetnftsource "github.com/forbole/bdjuno/v4/modules/assetnft/source"
 	"github.com/forbole/juno/v5/node/local"
 
-	assetfttypes "github.com/CoreumFoundation/coreum/v3/x/asset/ft/types"
-	assetnfttypes "github.com/CoreumFoundation/coreum/v3/x/asset/nft/types"
-	customparamstypes "github.com/CoreumFoundation/coreum/v3/x/customparams/types"
-	feemodeltypes "github.com/CoreumFoundation/coreum/v3/x/feemodel/types"
+	assetfttypes "github.com/CoreumFoundation/coreum/v4/x/asset/ft/types"
+	assetnfttypes "github.com/CoreumFoundation/coreum/v4/x/asset/nft/types"
+	customparamstypes "github.com/CoreumFoundation/coreum/v4/x/customparams/types"
+	feemodeltypes "github.com/CoreumFoundation/coreum/v4/x/feemodel/types"
 
 	nodeconfig "github.com/forbole/juno/v5/node/config"
 

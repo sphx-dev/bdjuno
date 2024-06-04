@@ -10,7 +10,7 @@ import (
 
 	"github.com/forbole/juno/v5/modules"
 
-	"github.com/CoreumFoundation/coreum/v3/pkg/config/constant"
+	"github.com/CoreumFoundation/coreum/v4/pkg/config/constant"
 )
 
 var (
