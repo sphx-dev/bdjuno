@@ -4,9 +4,9 @@ import (
 	"context"
 	"path/filepath"
 
-	"github.com/CoreumFoundation/coreum-tools/pkg/build"
 	"github.com/CoreumFoundation/crust/build/golang"
 	"github.com/CoreumFoundation/crust/build/tools"
+	"github.com/CoreumFoundation/crust/build/types"
 )
 
 const (
@@ -16,26 +16,16 @@ const (
 )
 
 // Build builds faucet in docker.
-func Build(ctx context.Context, deps build.DepsFunc) error {
+func Build(ctx context.Context, deps types.DepsFunc) error {
 	return buildBDJuno(ctx, deps, tools.TargetPlatformLinuxLocalArchInDocker)
 }
 
-// Tidy runs `go mod tidy` for bdjuno repo.
-func Tidy(ctx context.Context, deps build.DepsFunc) error {
-	return golang.Tidy(ctx, repoPath, deps)
-}
-
 // DownloadDependencies downloads go dependencies.
-func DownloadDependencies(ctx context.Context, deps build.DepsFunc) error {
-	return golang.DownloadDependencies(ctx, repoPath, deps)
+func DownloadDependencies(ctx context.Context, deps types.DepsFunc) error {
+	return golang.DownloadDependencies(ctx, deps, repoPath)
 }
 
-// Test run unit tests in bdjuno repo.
-func Test(ctx context.Context, deps build.DepsFunc) error {
-	return golang.Test(ctx, repoPath, deps)
-}
-
-func buildBDJuno(ctx context.Context, deps build.DepsFunc, targetPlatform tools.TargetPlatform) error {
+func buildBDJuno(ctx context.Context, deps types.DepsFunc, targetPlatform tools.TargetPlatform) error {
 	return golang.Build(ctx, deps, golang.BinaryBuildConfig{
 		TargetPlatform: targetPlatform,
 		PackagePath:    filepath.Join(repoPath, "cmd", "bdjuno"),

@@ -18,9 +18,7 @@ jobs:
         ]
         include:
           - ci_step: "test"
-            command: |
-              docker run --name bdjuno-test-db -e POSTGRES_USER=bdjuno -e POSTGRES_PASSWORD=password -e POSTGRES_DB=bdjuno -d -p 6433:5432 postgres
-              bdjuno-builder test
+            command: make test
             linter-cache: false
             codecov: true
             codecov-name: coreum
@@ -33,25 +31,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           persist-credentials: false
-          path: bdjuno
-      - name: Set up build system
-        run: |
-          echo "$(pwd)/bdjuno/bin" >> $GITHUB_PATH
-      - name: Retrieve go version
-        id: goversion
-        run: echo "GO_VERSION=$(bdjuno/bin/go version)" >> $GITHUB_OUTPUT
-      - name: Print go version
-        run: echo ${{ steps.goversion.outputs.GO_VERSION }}
       - name: Setup go cache
         uses: actions/cache@v4
         with:
           path: |
             ~/.cache/go-build
             ~/go/pkg/mod
-          key: ${{ runner.os }}-go-v2-${{ hashFiles('**/go.sum') }}-${{ steps.goversion.outputs.GO_VERSION }}
+          key: ${{ runner.os }}-go-v2-${{ hashFiles('**/go.sum') }}
       - name: Prepare dependencies
-        run: |
-          bdjuno-builder build/me
-          bdjuno-builder download
+        run: make dependencies
       - name: Run ${{ matrix.ci_step }}
         run: ${{ matrix.command }}

@@ -5,14 +5,14 @@ import (
 	"path/filepath"
 
 	"github.com/CoreumFoundation/bdjuno/build/bdjuno/image"
-	"github.com/CoreumFoundation/coreum-tools/pkg/build"
 	"github.com/CoreumFoundation/crust/build/config"
 	"github.com/CoreumFoundation/crust/build/docker"
 	"github.com/CoreumFoundation/crust/build/tools"
+	"github.com/CoreumFoundation/crust/build/types"
 )
 
 // BuildDockerImage builds docker image of the faucet.
-func BuildDockerImage(ctx context.Context, deps build.DepsFunc) error {
+func BuildDockerImage(ctx context.Context, deps types.DepsFunc) error {
 	deps(Build)
 
 	dockerfile, err := image.Execute(image.Data{

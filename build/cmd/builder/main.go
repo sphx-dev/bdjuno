@@ -2,7 +2,7 @@ package main
 
 import (
 	selfBuild "github.com/CoreumFoundation/bdjuno/build"
-	"github.com/CoreumFoundation/coreum-tools/pkg/build"
+	"github.com/CoreumFoundation/crust/build"
 )
 
 func main() {
