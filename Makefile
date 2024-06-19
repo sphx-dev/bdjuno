@@ -22,11 +22,3 @@ build:
 .PHONY: images
 images:
 	$(BUILDER) images
-
-.PHONY: generate
-generate:
-	$(BUILDER) generate
-
-.PHONY: dependencies
-dependencies:
-	$(BUILDER) download

@@ -6,7 +6,7 @@ on:
 
 jobs:
   ci:
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     steps:
       - name: Check Tag
         id: check-tag
@@ -28,7 +28,3 @@ jobs:
         with:
           prerelease: true
           generate_release_notes: true
-
-
-
-

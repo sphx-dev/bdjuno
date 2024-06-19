@@ -20,11 +20,6 @@ func Build(ctx context.Context, deps types.DepsFunc) error {
 	return buildBDJuno(ctx, deps, tools.TargetPlatformLinuxLocalArchInDocker)
 }
 
-// DownloadDependencies downloads go dependencies.
-func DownloadDependencies(ctx context.Context, deps types.DepsFunc) error {
-	return golang.DownloadDependencies(ctx, deps, repoPath)
-}
-
 func buildBDJuno(ctx context.Context, deps types.DepsFunc, targetPlatform tools.TargetPlatform) error {
 	return golang.Build(ctx, deps, golang.BinaryBuildConfig{
 		TargetPlatform: targetPlatform,

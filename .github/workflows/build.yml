@@ -13,7 +13,7 @@ env:
 jobs:
   setup-build-publish-webhook:
     name: Setup, Build, Publish, Webhook
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout
@@ -60,4 +60,3 @@ jobs:
             ${{ env.ORG }}/${{ env.HASURA_IMAGE_NAME }}:latest
             ${{ env.ORG }}/${{ env.HASURA_IMAGE_NAME }}:${{ env.SHA8 }}
             ${{ env.HASURA_FULL_TAG_NAME }}
-
