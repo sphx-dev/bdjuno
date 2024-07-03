@@ -19,6 +19,14 @@ test:
 build:
 	$(BUILDER) build
 
+.PHONY: build/arm64
+build/arm64:
+	$(BUILDER) build/arm64
+
+.PHONY: build/amd64
+build/amd64:
+	$(BUILDER) build/amd64
+
 .PHONY: images
 images:
 	$(BUILDER) images

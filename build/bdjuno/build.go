@@ -15,9 +15,17 @@ const (
 	binaryPath = "bin/" + binaryName
 )
 
-// Build builds faucet in docker.
+// Build builds bdjuno in docker.
 func Build(ctx context.Context, deps types.DepsFunc) error {
 	return buildBDJuno(ctx, deps, tools.TargetPlatformLinuxLocalArchInDocker)
+}
+
+func BuildAMD64(ctx context.Context, deps types.DepsFunc) error {
+	return buildBDJuno(ctx, deps, tools.TargetPlatformLinuxAMD64InDocker)
+}
+
+func BuildARM64(ctx context.Context, deps types.DepsFunc) error {
+	return buildBDJuno(ctx, deps, tools.TargetPlatformLinuxARM64InDocker)
 }
 
 func buildBDJuno(ctx context.Context, deps types.DepsFunc, targetPlatform tools.TargetPlatform) error {
