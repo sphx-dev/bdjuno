@@ -17,7 +17,7 @@ test:
 
 .PHONY: build
 build:
-	$(BUILDER) build
+	bash $(BUILDER) build
 
 .PHONY: build/arm64
 build/arm64:
