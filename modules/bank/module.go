@@ -1,6 +1,7 @@
 package bank
 
 import (
+	"github.com/CoreumFoundation/coreum/v4/pkg/config/constant"
 	"github.com/cosmos/cosmos-sdk/codec"
 
 	"github.com/forbole/bdjuno/v4/database"
@@ -9,8 +10,6 @@ import (
 	junomessages "github.com/forbole/juno/v5/modules/messages"
 
 	"github.com/forbole/juno/v5/modules"
-
-	"github.com/CoreumFoundation/coreum/v4/pkg/config/constant"
 )
 
 var (
@@ -51,6 +50,8 @@ func (m *Module) Name() string {
 }
 
 func getBaseTokenFromAddressPrefix(addressPrefix string) string {
+	return "sphx"
+
 	switch addressPrefix {
 	case constant.AddressPrefixMain:
 		return constant.DenomMain

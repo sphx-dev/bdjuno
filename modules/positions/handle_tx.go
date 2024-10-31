@@ -10,11 +10,6 @@ import (
 func (m *Module) HandleTx(tx *juno.Tx) error {
 	// Iterate through the events in the transaction directly
 	for _, event := range tx.Events {
-
-		/* EventTypeModifyPosition = "modify_position"
-
-			EventTypeNewPosition = "new_position"
-		) */
 		// Check if the event type matches the order events we're interested in
 		if event.Type == types.EventTypeModifyPosition || event.Type == types.EventTypeNewPosition {
 			// Initialize a map to store the attributes of the event

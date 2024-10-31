@@ -51,3 +51,20 @@ const (
 
 	AttributeKeyError = "error"
 )
+
+const (
+	MarginAccountModuleEventType = "margin_account"
+
+	EventTypeMsgCreateMarginAccount = "create_margin_account"
+
+	EventTypeMsgWithdraw = "withdraw"
+)
+
+const (
+	AttributeKeyMarginAccAddress = "address"
+	AttributeKeyOwner            = "owner"
+	AttributeKeyAccountNumber    = "account_number"
+	AttributeKeyRecipiant        = "recipient"
+	AttributeKeyDenom            = "denom"
+	AttributeKeyAmount           = "amount"
+)
