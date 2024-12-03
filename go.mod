@@ -5,8 +5,8 @@ go 1.21
 replace (
 	github.com/forbole/juno/v5 => github.com/CoreumFoundation/junov5/v5 v5.2.1-0.20240126121118-d3d301084ce7
 	// Pin the x/exp dependency version because consmos-sdk breaking change is not compatible
-    // with cosmos-sdk v0.47.
-    // Details: https://github.com/cosmos/cosmos-sdk/issues/18415
+	// with cosmos-sdk v0.47.
+	// Details: https://github.com/cosmos/cosmos-sdk/issues/18415
 	golang.org/x/exp => golang.org/x/exp v0.0.0-20230711153332-06a737ee72cb
 )
 
@@ -18,7 +18,7 @@ require (
 	github.com/cosmos/cosmos-sdk v0.47.11
 	github.com/cosmos/gogoproto v1.4.12
 	github.com/forbole/juno/v5 v5.2.0
-	github.com/go-co-op/gocron v1.35.0
+	github.com/go-co-op/gocron v1.37.0
 	github.com/golangci/golangci-lint v1.54.2
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/lib/pq v1.10.9
