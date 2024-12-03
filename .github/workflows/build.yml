@@ -30,7 +30,7 @@ jobs:
           export HASURA_FULL_TAG_NAME=${{ (startsWith(github.ref, 'refs/tags/') && format('{0}/{1}:{2}', env.ORG, env.HASURA_IMAGE_NAME, github.ref_name)) || '' }}
           echo "HASURA_FULL_TAG_NAME=$HASURA_FULL_TAG_NAME" >> $GITHUB_ENV
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Build binary
         run: |
