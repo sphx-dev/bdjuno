@@ -5,13 +5,13 @@ go 1.21
 replace (
 	github.com/forbole/juno/v5 => github.com/CoreumFoundation/junov5/v5 v5.2.1-0.20240126121118-d3d301084ce7
 	// Pin the x/exp dependency version because consmos-sdk breaking change is not compatible
-    // with cosmos-sdk v0.47.
-    // Details: https://github.com/cosmos/cosmos-sdk/issues/18415
+	// with cosmos-sdk v0.47.
+	// Details: https://github.com/cosmos/cosmos-sdk/issues/18415
 	golang.org/x/exp => golang.org/x/exp v0.0.0-20230711153332-06a737ee72cb
 )
 
 require (
-	cosmossdk.io/math v1.3.0
+	cosmossdk.io/math v1.4.0
 	cosmossdk.io/simapp v0.0.0-20230831152633-2e9e5d6eea24
 	github.com/CoreumFoundation/coreum/v4 v4.0.0-20240530123651-8e7ee3bae88b
 	github.com/cometbft/cometbft v0.37.5
