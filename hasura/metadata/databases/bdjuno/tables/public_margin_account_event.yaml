@@ -1,0 +1,3 @@
+table:
+  name: margin_account_event
+  schema: public

@@ -1,0 +1,3 @@
+table:
+  name: market_event
+  schema: public

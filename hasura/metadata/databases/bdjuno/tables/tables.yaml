@@ -48,3 +48,7 @@
 - "!include public_assetft_params.yaml"
 - "!include public_assetnft_params.yaml"
 - "!include public_auth_params.yaml"
+- "!include public_margin_account_event.yaml"
+- "!include public_market_event.yaml"
+- "!include public_order_event.yaml"
+- "!include public_position_event.yaml"
