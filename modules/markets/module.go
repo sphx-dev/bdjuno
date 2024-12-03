@@ -1,4 +1,4 @@
-package positions
+package markets
 
 import (
 	"github.com/cosmos/cosmos-sdk/codec"

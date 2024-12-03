@@ -1,13 +1,18 @@
-package positions
+package markets
 
 import (
 	"fmt"
 
 	"github.com/forbole/bdjuno/v4/types"
 	juno "github.com/forbole/juno/v5/types"
+	"github.com/rs/zerolog/log"
 )
 
 func (m *Module) HandleTx(tx *juno.Tx) error {
+	log.Info().Str("module", "markets").
+		Int64("height", tx.Height).
+		Str("tx", tx.TxHash).
+		Msg("HandleTx")
 	// Iterate through the events in the transaction directly
 	for _, event := range tx.Events {
 		// Check if the event type matches the order events we're interested in
@@ -33,7 +38,9 @@ func (m *Module) HandleTx(tx *juno.Tx) error {
 				marketStatus,
 			))
 			if err != nil {
-				return fmt.Errorf("failed to save order update: %w", err)
+				log.Error().Str("module", "markets").Int64("height", tx.Height).
+					Err(err).Msg("error while registering markets")
+				return fmt.Errorf("failed to save markets update: %w", err)
 			}
 		}
 	}

@@ -3,6 +3,11 @@ package modules
 import (
 	"github.com/forbole/bdjuno/v4/modules/actions"
 	"github.com/forbole/bdjuno/v4/modules/addresses"
+	"github.com/forbole/bdjuno/v4/modules/marginacc"
+	"github.com/forbole/bdjuno/v4/modules/marginaccwithdraw"
+	"github.com/forbole/bdjuno/v4/modules/markets"
+	"github.com/forbole/bdjuno/v4/modules/orders"
+	"github.com/forbole/bdjuno/v4/modules/positions"
 	"github.com/forbole/bdjuno/v4/modules/types"
 
 	"github.com/forbole/juno/v5/modules/pruning"
@@ -91,6 +96,7 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 	customParamsModule := customparams.NewModule(sources.CustomParamsSource, cdc, db)
 	assetFTModule := assetft.NewModule(sources.AssetFTSource, cdc, db)
 	assetNFTModule := assetnft.NewModule(sources.AssetNFTSource, cdc, db)
+
 	govModule := gov.NewModule(
 		sources.GovSource,
 		authModule,
@@ -106,6 +112,13 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 		db,
 	)
 	upgradeModule := upgrade.NewModule(db, stakingModule)
+
+	marketsModule := markets.NewModule(cdc, db)
+	marginaccModule := marginacc.NewModule(cdc, db)
+	marginaccwithdrawModule := marginaccwithdraw.NewModule(cdc, db)
+
+	ordersModule := orders.NewModule(cdc, db)
+	positionsModule := positions.NewModule(cdc, db)
 
 	return []jmodules.Module{
 		messages.NewModule(r.parser, cdc, ctx.Database),
@@ -130,6 +143,11 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 		customParamsModule,
 		assetFTModule,
 		assetNFTModule,
+		marginaccModule,
+		marginaccwithdrawModule,
+		marketsModule,
+		ordersModule,
+		positionsModule,
 		// This must be the last item.
 		addresses.NewModule(r.parser, cdc, db),
 	}

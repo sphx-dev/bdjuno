@@ -1,13 +1,18 @@
-package positions
+package marginaccwithdraw
 
 import (
 	"fmt"
 
 	"github.com/forbole/bdjuno/v4/types"
 	juno "github.com/forbole/juno/v5/types"
+	"github.com/rs/zerolog/log"
 )
 
 func (m *Module) HandleTx(tx *juno.Tx) error {
+	log.Info().Str("module", "marginaccwithdraw").
+		Int64("height", tx.Height).
+		Str("tx", tx.TxHash).
+		Msg("HandleTx")
 	// Iterate through the events in the transaction directly
 	for _, event := range tx.Events {
 		// Check if the event type matches the order events we're interested in
@@ -29,7 +34,9 @@ func (m *Module) HandleTx(tx *juno.Tx) error {
 				withdrawCoin,
 			))
 			if err != nil {
-				return fmt.Errorf("failed to save margin account event: %w", err)
+				log.Error().Str("module", "marginaccwithdraw").Int64("height", tx.Height).
+					Err(err).Msg("error while registering marginaccwithdraw")
+				return fmt.Errorf("failed to save marginaccwithdraw event: %w", err)
 			}
 		}
 	}

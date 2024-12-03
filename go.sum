@@ -438,8 +438,6 @@ github.com/CoreumFoundation/coreum-tools v0.4.1-0.20230627094203-821c6a4eebab h1
 github.com/CoreumFoundation/coreum-tools v0.4.1-0.20230627094203-821c6a4eebab/go.mod h1:VD93vCHkxYaT/RhOesXTFgd/GQDW54tr0BqGi5JU1c0=
 github.com/CoreumFoundation/coreum/v4 v4.0.0-20240530123651-8e7ee3bae88b h1:oczbfafiQEEttQ63gGXWGdnXem0Jb4mDTK5N1o9C7DQ=
 github.com/CoreumFoundation/coreum/v4 v4.0.0-20240530123651-8e7ee3bae88b/go.mod h1:fukHWhWXVEWpDej+oOPhEuHpR3FjSWipGaan9pUZJWE=
-github.com/CoreumFoundation/junov5/v5 v5.2.1-0.20240126121118-d3d301084ce7 h1:kx/HTRLZ1KARVFJPbqEun0K2vkUJmnum8ULOUQzKWLw=
-github.com/CoreumFoundation/junov5/v5 v5.2.1-0.20240126121118-d3d301084ce7/go.mod h1:wl9jxyKnDx6rElBkc6Zn8i9DInBpMwMeoX6Kxkp71KM=
 github.com/CosmWasm/wasmd v0.44.0 h1:2sbcoCAvfjCs1O0SWt53xULKjkV06dbSFthEViIC6Zg=
 github.com/CosmWasm/wasmd v0.44.0/go.mod h1:tDyYN050qUcdd7LOxGeo2e185sEShyO3nJGl2Cf59+k=
 github.com/CosmWasm/wasmvm v1.5.1 h1:2MHN9uFyHP6pxfvpBJ0JW6ujvAIBk9kQk283zyri0Ro=
@@ -1489,6 +1487,8 @@ github.com/spf13/pflag v1.0.5/go.mod h1:McXfInJRrz4CZXVZOBLb0bTZqETkiAhM9Iw0y3An
 github.com/spf13/viper v1.3.2/go.mod h1:ZiWeW+zYFKm7srdB9IoDzzZXaJaI5eL9QjNiN/DMA2s=
 github.com/spf13/viper v1.18.2 h1:LUXCnvUvSM6FXAsj6nnfc8Q2tp1dIgUfY9Kc8GsSOiQ=
 github.com/spf13/viper v1.18.2/go.mod h1:EKmWIqdnk5lOcmR72yw6hS+8OPYcwD0jteitLMVB+yk=
+github.com/sphx-dev/junov5/v5 v5.2.1 h1:uCGoE20bBRSIFjUaturwGDu0Kx4GzbnQyzVfKUbI+eg=
+github.com/sphx-dev/junov5/v5 v5.2.1/go.mod h1:wl9jxyKnDx6rElBkc6Zn8i9DInBpMwMeoX6Kxkp71KM=
 github.com/ssgreg/nlreturn/v2 v2.2.1 h1:X4XDI7jstt3ySqGU86YGAURbxw3oTDPK9sPEi6YEwQ0=
 github.com/ssgreg/nlreturn/v2 v2.2.1/go.mod h1:E/iiPB78hV7Szg2YfRgyIrk1AD6JVMTRkkxBiELzh2I=
 github.com/stbenjam/no-sprintf-host-port v0.1.1 h1:tYugd/yrm1O0dV+ThCbaKZh195Dfm07ysF0U6JQXczc=

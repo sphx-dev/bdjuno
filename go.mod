@@ -3,10 +3,10 @@ module github.com/forbole/bdjuno/v4
 go 1.21
 
 replace (
-	github.com/forbole/juno/v5 => github.com/CoreumFoundation/junov5/v5 v5.2.1-0.20240126121118-d3d301084ce7
+	github.com/forbole/juno/v5 => github.com/sphx-dev/junov5/v5 v5.2.1
 	// Pin the x/exp dependency version because consmos-sdk breaking change is not compatible
-    // with cosmos-sdk v0.47.
-    // Details: https://github.com/cosmos/cosmos-sdk/issues/18415
+	// with cosmos-sdk v0.47.
+	// Details: https://github.com/cosmos/cosmos-sdk/issues/18415
 	golang.org/x/exp => golang.org/x/exp v0.0.0-20230711153332-06a737ee72cb
 )
 
