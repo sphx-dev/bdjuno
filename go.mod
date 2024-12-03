@@ -5,8 +5,8 @@ go 1.21
 replace (
 	github.com/forbole/juno/v5 => github.com/CoreumFoundation/junov5/v5 v5.2.1-0.20240126121118-d3d301084ce7
 	// Pin the x/exp dependency version because consmos-sdk breaking change is not compatible
-    // with cosmos-sdk v0.47.
-    // Details: https://github.com/cosmos/cosmos-sdk/issues/18415
+	// with cosmos-sdk v0.47.
+	// Details: https://github.com/cosmos/cosmos-sdk/issues/18415
 	golang.org/x/exp => golang.org/x/exp v0.0.0-20230711153332-06a737ee72cb
 )
 
@@ -24,7 +24,7 @@ require (
 	github.com/lib/pq v1.10.9
 	github.com/pelletier/go-toml v1.9.5
 	github.com/prometheus/client_golang v1.17.0
-	github.com/proullon/ramsql v0.1.2
+	github.com/proullon/ramsql v0.1.4
 	github.com/rs/zerolog v1.32.0
 	github.com/samber/lo v1.39.0
 	github.com/spf13/cobra v1.8.0

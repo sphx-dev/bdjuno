@@ -1381,8 +1381,8 @@ github.com/prometheus/procfs v0.6.0/go.mod h1:cz+aTbrPOrUb4q7XlbU9ygM+/jj0fzG6c1
 github.com/prometheus/procfs v0.7.3/go.mod h1:cz+aTbrPOrUb4q7XlbU9ygM+/jj0fzG6c1xBZuNvfVA=
 github.com/prometheus/procfs v0.12.0 h1:jluTpSng7V9hY0O2R9DzzJHYb2xULk9VTR1V1R/k6Bo=
 github.com/prometheus/procfs v0.12.0/go.mod h1:pcuDEFsWDnvcgNzo4EEweacyhjeA9Zk3cnaOZAZEfOo=
-github.com/proullon/ramsql v0.1.2 h1:PTtsy2iml/CW3Lsopyr86dlIs7JyYEmfLrfYvQVXD2U=
-github.com/proullon/ramsql v0.1.2/go.mod h1:CFGqeQHQpdRfWqYmWD3yXqPTEaHkF4zgXy1C6qDWc9E=
+github.com/proullon/ramsql v0.1.4 h1:yTFRTn46gFH/kPbzCx+mGjuFlyTBUeDr3h2ldwxddl0=
+github.com/proullon/ramsql v0.1.4/go.mod h1:CFGqeQHQpdRfWqYmWD3yXqPTEaHkF4zgXy1C6qDWc9E=
 github.com/quasilyte/go-ruleguard v0.4.0 h1:DyM6r+TKL+xbKB4Nm7Afd1IQh9kEUKQs2pboWGKtvQo=
 github.com/quasilyte/go-ruleguard v0.4.0/go.mod h1:Eu76Z/R8IXtViWUIHkE3p8gdH3/PKk1eh3YGfaEof10=
 github.com/quasilyte/gogrep v0.5.0 h1:eTKODPXbI8ffJMN+W2aE0+oL0z/nh8/5eNdiO34SOAo=
