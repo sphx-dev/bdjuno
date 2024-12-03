@@ -27,7 +27,7 @@ require (
 	github.com/proullon/ramsql v0.1.2
 	github.com/rs/zerolog v1.32.0
 	github.com/samber/lo v1.39.0
-	github.com/spf13/cobra v1.8.0
+	github.com/spf13/cobra v1.8.1
 	github.com/stretchr/testify v1.9.0
 	google.golang.org/grpc v1.62.1
 	gopkg.in/yaml.v3 v3.0.1
