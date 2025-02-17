@@ -27,7 +27,7 @@ require (
 	github.com/proullon/ramsql v0.1.2
 	github.com/rs/zerolog v1.32.0
 	github.com/samber/lo v1.39.0
-	github.com/spf13/cobra v1.8.0
+	github.com/spf13/cobra v1.9.1
 	github.com/stretchr/testify v1.9.0
 	google.golang.org/grpc v1.62.1
 	gopkg.in/yaml.v3 v3.0.1
@@ -280,7 +280,7 @@ require (
 	github.com/sourcegraph/go-diff v0.7.0 // indirect
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/cast v1.6.0 // indirect
-	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/spf13/pflag v1.0.6 // indirect
 	github.com/spf13/viper v1.18.2 // indirect
 	github.com/ssgreg/nlreturn/v2 v2.2.1 // indirect
 	github.com/stbenjam/no-sprintf-host-port v0.1.1 // indirect
